@@ -1,0 +1,81 @@
+.start-guarantee{
+    padding:5rem;
+    width: 100%;
+    margin: auto;
+ }
+ .start-guarantee h3{
+     display: block;
+     font-size: 1.17em;
+     margin-block-start: 1em;
+     margin-block-end: 1em;
+     margin-inline-start: 0px;
+     margin-inline-end: 0px;
+     font-weight: bold;
+ }
+ 
+
+ .nav-tabs .tab-item{
+    position: relative;
+    font-size: 16px;
+    padding: 17px 24px;
+    color: #161a21;
+    border: none;
+   
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.5s ease;
+     
+ }
+ .tab-item.active{
+    opacity: 1;
+    background-color: #ecebea; 
+  }
+  
+ .tab-item:hover {
+    opacity: 1;
+    background-color: #ecebea; 
+    
+  }
+
+ .tab-content{
+    border-left: 1px solid gray;
+ }
+ .tab-content-item{
+    display: none;
+ }
+ .tab-content-item.active{
+    display: block;
+ }
+ .tab-content-item{
+    position: relative;
+    padding-left: 2rem;
+        
+ }
+ 
+ .tab-content-item {
+     animation-name: mymove;
+     animation-duration: 1s;
+ }
+ @keyframes  mymove {
+     from {left: 2%;}
+     to {left:0;}
+ }
+
+.tab-content-item > p,
+.tab-content-item > div{
+    margin-bottom: 1.5rem;
+}
+table{
+    border-collapse: collapse;
+}
+table, td,th {
+    border: 1px solid black;
+    padding: .6rem;
+}
+td,th{
+    font-size: .9rem;
+}
+.list li{
+    list-style:circle;
+    
+}

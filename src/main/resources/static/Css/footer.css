@@ -1,0 +1,155 @@
+/* ------footer top-------- */
+
+.footer-top{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+   
+    margin: auto;
+}
+.footer-top h5{
+    font-size: .7rem;
+    
+}
+
+.register-form{
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    margin-bottom: 12px;
+    overflow: hidden;
+    justify-content: space-between;
+}
+.register-gender select{
+    background: #f8f7f4;
+    border: 1px solid #d6d6d4;
+    width:100%;
+    padding: .77rem;
+    font-size: .7rem;
+    line-height: .7rem;
+    letter-spacing: .02em;
+    color: #161a21;
+    
+    appearance: none;
+}
+.register-name input{
+    background: #f8f7f4;
+    width:99%;
+    font-size: .7rem;
+    line-height: .7rem;
+    letter-spacing: .2em;
+    color: #161a21;
+    padding: .7rem;
+    margin-left: .3rem;
+    border: 1px solid #d6d6d4;
+}
+.register-email input{
+    background: #f8f7f4;
+    width: 100%;
+    font-size: .7rem;
+    line-height: .7rem;
+    letter-spacing: .2em;
+    color: #161a21;
+    padding: 14px;
+    
+    border: 1px solid #d6d6d4;
+}
+.register-btn button{
+    cursor: pointer;
+    width: 100%;
+    background: #87888b;
+    border: none;
+    padding: 0.9rem 0;
+    margin: 5px 0 0;
+    transition: .3s ease-out;
+    color: #fff;
+}
+
+.footer-contact,
+.footer-address{
+    margin-left: 5rem;
+}
+
+.register .register-form,
+.register .register-email,
+.footer-address p,
+.footer-info p,
+.footer-info div{
+    margin: 1.3rem 0;
+}
+.footer-top img{
+    width: 2rem;
+}
+.footer-soial-netword a{
+    padding: .3rem;
+}
+.footer-address p,
+.footer-info p{
+    font-weight: 200;
+    font-size: 15px;
+}
+
+.footer-bank img{
+    width: 2.3rem;
+    margin-top: 1rem;
+}
+
+/* ------end footer top-------- */
+
+
+/* ---------footer center-------- */
+.footer-center .d-flex{
+    justify-content: space-between;
+    padding: 1.3rem 0;
+    margin: auto;
+    background-color:#ecebea ;
+   
+    
+}
+ .footer-loading span,
+ .footer-loading a,
+ .footer-guarantee span,
+ .footer-guarantee a
+  {
+    background-color:#ecebea ;
+}
+.footer-loading span,
+.footer-guarantee span{
+    padding: 0 1rem;
+}
+
+.footer-center{
+    background-color:#ecebea ;
+    font-size: .8rem;
+}
+.footer-center a:hover  {
+    border-bottom: 1px solid gray;
+}
+.footer-guarantee .border-right{
+    border-right: 1px solid gray;
+}
+
+.footer-loading span:first-child{
+    padding-left: 0;
+}
+.footer-guarantee span:last-child{
+    padding-right: 0;
+}
+
+/* ---------end footer center-------- */
+
+
+/* ---------footer bottom-------- */
+.footer-bottom{
+    justify-content: space-between;
+    margin: 2rem auto;
+    width: 70%;
+}
+.certificate{
+    font-size: .7rem;
+}
+.certificate h5{
+    margin-bottom: .5rem;
+}
+
+
+/* ---------end footer center-------- */

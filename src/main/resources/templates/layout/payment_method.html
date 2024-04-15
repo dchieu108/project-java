@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phương thức thanh toán</title>
+    <link rel="icon" href="../Images/logo_small.f2cdcd68.svg">
+    <style>
+        .container-fluid {
+            padding: 20px;
+        }
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #f8f9fa;
+            padding: 10px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #f2f2f2;
+        }
+        .table img {
+            max-width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="card-body">
+        <div class="card">
+            <div class="card-header">
+                <h1>Phương thức thanh toán</h1>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead class="card-header">
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên phương thức</th>
+                        <th>Ghi chú</th>
+                        <th>Hình ảnh</th>
+                        <th>Ngày tạo</th>
+                        <th>Trạng thái</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="paymentMethods: ${PayAll}">
+                        <td th:text="${paymentMethods.id}"></td>
+                        <td  th:text="${paymentMethods.name}"></td>
+                        <td th:text="${paymentMethods.notes}"></td>
+                        <td>
+                            <img th:src="'../Images/' + ${paymentMethods.image}" style="width:100px;">
+                        </td>
+                        <td  th:text="${paymentMethods.createdDate}"></td>
+                        <td th:text="${paymentMethods.isactive}" > </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

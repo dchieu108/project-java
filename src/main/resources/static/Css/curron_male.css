@@ -1,0 +1,55 @@
+.product-filter{
+    width: 70%;
+    margin: auto;
+    justify-content: space-between;
+    background-color: #ecebea ;
+}
+.product-filter .filter-item{
+    border-right: 1px solid #FFF;
+}
+.product-filter select{
+    background-color: #ecebea ;
+    padding: .5rem .5rem;
+    border: none;
+}
+
+
+
+.male-media{
+    margin:3rem auto;
+   align-items: center;
+  
+}
+.male-media .media-title{
+    margin-left: 2rem;
+    padding:  0 0 1rem;
+}
+.media-title h2{
+    font-size: 1.7rem;
+    letter-spacing: .2rem;
+    font-weight: bolder;
+    line-height: 1rem;
+    padding-bottom: 1.3rem;
+}
+.media-title h5{
+    font-size: 1rem;
+    letter-spacing: .5rem;
+    font-weight: 100;
+    line-height: 1rem;
+    padding-bottom: 1.3rem;
+}
+.media-title p{
+    font-size: .8rem;
+    font-weight: bolder;
+    opacity: .5;
+    line-height: 1rem;
+    padding-bottom: 1.3rem;
+}
+.male-media button{
+    padding: .7rem 2rem;
+}
+
+.media-title button:hover {
+    background-color: black;
+    color: #fff;
+}
