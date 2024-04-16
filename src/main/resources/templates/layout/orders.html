@@ -1,33 +1,32 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
-<body>
-
-
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Curron</title>
-    <link rel="icon" href="../Images/logo_small.f2cdcd68.svg">
 
+
+    <link rel="icon" href="../Images/logo_small.f2cdcd68.svg">
 
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../font/fontawesome-free-6.4.0-web/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link href="https://allfont.net/allfont.css?fonts=roboto-thin" rel="stylesheet" type="text/css" />
+    <!-- // Add the new slick-theme.css if you want the default styling -->
 
 
-    <link rel="stylesheet" th:href="@{/Css/layout.css}">
-    <link rel="stylesheet" th:href="@{/Css/curon.css}">
-    <link rel="stylesheet" th:href="@{/Css/headerHover.css}">
-    <link rel="stylesheet" th:href="@{/Css/footer.css}">
-    <link rel="stylesheet" th:href="@{/Css/reponsive.css}">
+    <link rel="stylesheet" href="../Css/layout.css">
+    <link rel="stylesheet" href="../Css/curon.css">
+    <link rel="stylesheet" href="../Css/headerHover.css">
+    <link rel="stylesheet" href="../Css/footer.css">
+    <link rel="stylesheet" href="../Css/reponsive.css">
+    <link rel="stylesheet" href="../Css/giohang.css">
+
 
 
 
@@ -45,15 +44,15 @@
             </div>
             <ul class="option d-flex ">
                 <li class="nav-item " data-option="false" href="#option-1">
-                    <a href="#">Nam Giới</a>
+                    <a href="#option-1">Nam Giới</a>
 
                 </li>
 
-                <li class="nav-item " data-option="false" href="#option-2" >
+                <li class="nav-item " data-option="false" href="#option-2">
                     <a href="#">Nữ Giới</a>
 
                 </li>
-                <li class="nav-item" data-option="false" href="#option-3" >
+                <li class="nav-item" data-option="false" href="#option-3">
                     <a href="..//View/lienhe.php">Liên Hệ</a>
                 </li>
                 <li class="nav-item" data-option="false" href="#option-4">
@@ -250,8 +249,6 @@
                                                     thay đổi phong cách thời trang của bản thân với dây đồng hồ
                                                     Curnon
                                                 </p>
-
-
                                             </div>
                                         </div>
 
@@ -271,8 +268,8 @@
 
         </div>
         <div class="menu-center ">
-            <div class="logo"  ><a th:href="@{/showAll}"><img style="width: 90px;"
-                                                                                             src="https://curnonwatch.com/wp-content/uploads/2023/12/logo.svg" ></a></div>
+            <div class="logo"  style="margin-left: 100px;"><a href="..//View/curron.php"><img
+                    src="https://curnonwatch.com/_next/static/media/logo.cc5d661a.svg" alt=""></a></div>
         </div>
         <div class="menu-right ">
             <ul class="d-flex">
@@ -342,49 +339,53 @@
 
 
     <!-- End-category -->
-    <div class="product-men ">
-        <div class="product-title text-center">
-            <h1>BEST SELLERS</h1>
-            <div>
-                <form action="timkiem.php" method="post">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm" name="keyword" style="padding: 10px;
-                                                                                                        width: 30%; ">
-                    <button class="btn btn-warning" type="submit" style="padding: 10px;"><i class="fas fa-search"></i></button>
-                </form>
+    <h1>Thanh Toán</h1>
+    <div>
+        <form  method="POST">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Đơn Giá</th>
+                    <th>Số Lượng</th>
+                    <th>Thành Tiền</th>
+                    <th>Chọn</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:action="@{/chitietsanpham/{id}(id = ${id})}" method="post" th:object="${productDTO}">
+                    <td th:text="${productDTO.id}"></td>
+                    <td th:text="${productDTO.name}"></td>
+                    <td th:text="${productDTO.gia}"> </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="dh">
+                <p>Tổng Giá Trị Đơn Hàng:</p>
+                <button type="submit" name="update" >Cập Nhật Đơn Hàng</button>
             </div>
-            <!-- <p class="font-15"> XEM TẤT CẢ <i class="fa-solid fa-arrow-right "></i></p> -->
-
-
-        </div>
-        <div class="list-product d-flex w-70" >
-            <div class="product-item w-25 position-rel " th:each="product: ${productAll}">
-                <div class="product-cate position-rel">
-
-                        <div>
-                            <img th:src="'../Images/' + ${product.anh}" class="w-100" alt="cate">
-
-                        </div>
-
-                    <div class="product-sale" th:text="${product.sales}+'%'"></div>
-                </div>
-                <div class="product-name text-center">
-                    <h4 ></h4>
-                    <h3 th:text="${product.name}"></h3>
-                    <p>
-                        <span class="fw-900" th:text="${product.gia}"></span>
-                        <span class="text-through" >3.769.000</span>
-                    </p>
-                </div>
-                <a th:href="@{/chitietsanpham/{id}(id = ${product.id})}">
-                    <button>Thêm giỏ hàng</button>
-                </a>
-
+            <div class="form-group">
+                <h2>Thông tin đặt hàng</h2>
             </div>
-        </div>
+            <div class="form-group">
+                <input type="text" name="customer" placeholder="Nhập Họ Tên">
+            </div>
+            <div class="form-group">
+                <input type="text" name="address" placeholder="Nhập Địa Chỉ">
+            </div>
+            <div class="form-group">
+                <input type="number" name="phone" placeholder="Nhập Số Điện Thoại">
+                <input type="hidden" name="total" value="">
+            </div>
+            <div class="form-group">
+                <input type="submit" name="order" value="Đặt Đơn Hàng">
+            </div>
+
+        </form>
+
     </div>
-
-
-
+    <!-- Banner-bottom -->
 
 
     <div class="banner-bottom mg-topbot position-rel">
@@ -564,7 +565,6 @@
                     </span>
                 <span><a href="..//View/dangki.php">Đăng ký</a></span>
                 <span><a href="..//View/dangnhap.php">Đăng nhập</a></span>
-
             </div>
         </div>
 
@@ -592,10 +592,11 @@
         crossorigin="anonymous"></script>
 
 
-<script th:src="@{/Js/heder-hover.js}"></script>
-<script th:src="@{/Js/slick.js}"></script>
+<script src="../Js/heder-hover.js"></script>
+<script src="../Js/slick.js"></script>
+<!-- <script src="../Js/giohang.js"></script> -->
+
 </body>
 
 </html>
-</body>
-</html>
+

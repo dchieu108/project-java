@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Phương thức thanh toán</title>
+    <title>Phương thức vận chuyển</title>
     <link rel="icon" href="../Images/logo_small.f2cdcd68.svg">
     <style>
         .container-fluid {
@@ -95,7 +95,7 @@
                 Quản lý sản phẩm
             </a>
         </li>
-        <!-- Thêm các mục menu khác tại đây -->
+
     </ul>
 </div>
 
@@ -104,7 +104,7 @@
     <div class="card-body">
         <div class="card">
             <div class="card-header">
-                <h1>Phương thức thanh toán</h1>
+                <h1>Phương thức vận chuyển</h1>
             </div>
             <div class="card-body">
                 <table class="table">
@@ -113,29 +113,23 @@
                         <th>ID</th>
                         <th>Tên phương thức</th>
                         <th>Ghi chú</th>
-                        <th>Hình ảnh</th>
+                        <th>Giá</th>
                         <th>Ngày tạo</th>
                         <th>Trạng thái</th>
 
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="paymentMethods: ${PayAll}">
-                        <td th:text="${paymentMethods.id}"></td>
-                        <td  th:text="${paymentMethods.name}"></td>
-                        <td th:text="${paymentMethods.notes}"></td>
-                        <td>
-                            <img th:src="'../Images/' + ${paymentMethods.image}" style="width:100px;">
-                        </td>
-                        <td  th:text="${paymentMethods.createdDate}"></td>
-                        <td th:text="${paymentMethods.isactive}" > </td>
-
+                    <tr th:each="transportMethods: ${TranAll}">
+                        <td th:text="${transportMethods.id}"></td>
+                        <td  th:text="${transportMethods.name}"></td>
+                        <td th:text="${transportMethods.notes}"></td>
+                        <td th:text="${transportMethods.price}"></td>
+                        <td  th:text="${transportMethods.createdDate}"></td>
+                        <td th:text="${transportMethods.isactive}" > </td>
                     </tr>
                     </tbody>
                 </table>
-                <a class="btn btn-primary" th:href="@{/add-payment}">
-                    thêm
-                </a>
             </div>
         </div>
     </div>

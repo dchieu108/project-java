@@ -9,15 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductDTO {
+public class PaymentDTO {
     private Integer id;
     private String name;
-    private String anh;
-    private float gia;
-    private int sales;
-    private String note;
-    private String category;
-    private int quantity;
+    private String image;
+    private String notes;
     private String createdDate;
     private String updatedDate;
 }

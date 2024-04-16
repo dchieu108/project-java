@@ -365,7 +365,7 @@
             </div>
             <div class="price">
                 <div class="mota">
-                    <h1><b th:text="${productDTO.tenSanPham}"></h1>
+                    <h1><b th:text="${productDTO.name}"></h1>
                 </div >
                 <div class="mota">
                     <h5> Kích cỡ dây: 20MM</h5>
@@ -391,12 +391,12 @@
                         </div>
                     </div>
                 </div>
-                <div style="text-align:center;
-                                                        padding:10px 10px;
-                                                        ">
-                    <form  method="POST">
-                    <button type="submit" name="add-to-cart" style="width:30%;
-                                                                                    padding: 10px 10px;">THÊM GIỎ HÀNG </button>
+                <div style="text-align:center; padding:10px 10px">
+                    <a th:href="@{/orders}">
+                        <button type="submit" name="add-to-cart" style="width:30%;padding: 10px 10px;">
+                            THÊM GIỎ HÀNG
+                        </button>
+                    </a>
                 </div>
                 <hr>
                 <div class="mota">
