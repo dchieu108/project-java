@@ -19,18 +19,6 @@ public class ProductController {
     public List<Product> findAll() {
         return productService.findAll();
     }
-
-    @GetMapping("/payment_method")
-    public List<PaymentMethod> PayAll(){
-        return productService.PayAll();
-    }
-
-    @GetMapping("/transportmethod")
-    public List<TransportMethod> TranAll(){
-        return productService.TranAll();
-    }
-
-
     // thêm sinh viên
     @PostMapping("")
     String save(@RequestBody ProductDTO product) {

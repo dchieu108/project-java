@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(name = "payment_method")
 public class PaymentMethod {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 

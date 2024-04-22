@@ -361,7 +361,7 @@
                 <div class="product-cate position-rel">
 
                         <div>
-                            <img th:src="'../Images/' + ${product.anh}" class="w-100" alt="cate">
+                            <img th:src="'../Images/' + ${product.image}" class="w-100" alt="cate">
 
                         </div>
 
@@ -371,7 +371,7 @@
                     <h4 ></h4>
                     <h3 th:text="${product.name}"></h3>
                     <p>
-                        <span class="fw-900" th:text="${product.gia}"></span>
+                        <span class="fw-900" th:text="${product.price}"></span>
                         <span class="text-through" >3.769.000</span>
                     </p>
                 </div>

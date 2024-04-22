@@ -16,4 +16,5 @@ public class PaymentDTO {
     private String notes;
     private String createdDate;
     private String updatedDate;
+    private String isactive;
 }

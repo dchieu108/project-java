@@ -39,22 +39,14 @@ public class ProductService {
         List<Product> products = productReposition.findAll();
         return products;
     }
-    public List<PaymentMethod> PayAll(){
-        List<PaymentMethod> paymentMethods = paymentReposition.findAll();
-        return paymentMethods;
-    }
 
-    public  List<TransportMethod> TranAll(){
-        List<TransportMethod> transportMethods = transportReposition.findAll();
-        return  transportMethods;
-    }
     //thêm sinh viên
     public String save(ProductDTO product){
         Product products =new Product();
         products.setId(products.getId());
         products.setName(product.getName());
-        products.setAnh(product.getAnh());
-        products.setGia(String.valueOf((long) product.getGia()));
+        products.setImage(product.getImage());
+        products.setPrice(String.valueOf((long) product.getPrice()));
         products.setCreatedDate(LocalDateTime.parse(product.getCreatedDate()));
         products.setQuatity(product.getQuantity());
         productReposition.save(products);
@@ -68,11 +60,10 @@ public class ProductService {
         if (!existsById) return "Không có sinh viên có id = " +id;
         Product products = new Product();
         products.setId(id);
-        products.setAnh(productDTO.getAnh());
+        products.setImage(productDTO.getImage());
         products.setName(productDTO.getName());
         products.setQuatity((productDTO.getQuantity()));
-
-        products.setGia(String.valueOf((long) productDTO.getGia()));
+        products.setPrice(String.valueOf((long) productDTO.getPrice()));
         productReposition.save(products);
         return "Cập nhật thành công";
     }

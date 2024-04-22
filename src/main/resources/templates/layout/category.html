@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Phương thức vận chuyển</title>
+    <title>Loại sản phẩm</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="../Images/logo_small.f2cdcd68.svg">
     <link href='https://unpkg.com/css.gg@2.0.0/icons/css/close-o.css' rel='stylesheet'>
@@ -76,10 +76,11 @@
         a {
             text-decoration: none;
             color: #333;
-            font-size: 16px; /* Tăng kích thước chữ */
+            font-size: 16px;
             display: flex;
             align-items: center;
         }
+
         a:hover {
             color: #1c1cd2;
         }
@@ -87,11 +88,6 @@
         /* CSS cho icon */
         .icon {
             margin-right: 10px;
-        }
-        .a{
-            display: flex;
-            text-decoration: none;
-
         }
 
     </style>
@@ -150,52 +146,35 @@
     <div class="card-body">
         <div class="card">
             <div class="card-header">
-                <h1>Phương thức vận chuyển</h1>
+                <h1>Loại sản phẩm</h1>
             </div>
             <div class="card-body">
                 <table class="table">
                     <thead class="card-header">
                     <tr>
                         <th>ID</th>
-                        <th>Tên phương thức vận chuyển</th>
-                        <th>Ảnh</th>
-                        <th>Giá</th>
+                        <th>Tên phương thức</th>
+                        <th>Số lượng</th>
                         <th>Ngày tạo</th>
                         <th>Trạng thái</th>
-                        <th colspan="2">Tuỳ chọn</th>
+                        <th>Tuỳ chọn</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="transport: ${TranAll}">
-                        <td th:text="${transport.id}"></td>
-                        <td  th:text="${transport.name}"></td>
+                    <tr th:each="category: ${CateAll}">
+                        <td th:text="${category.id}"></td>
+                        <td  th:text="${category.name}"></td>
+                        <td th:text="${category.notes}"></td>
+                        <td  th:text="${category.createdDate}"></td>
+                        <td th:text="${category.isactive}" > </td>
                         <td>
-                            <img th:src="'../Images/' + ${transport.images}" style="width:100px;">
-                        </td>
-                        <td th:text="${transport.price}"></td>
-                        <td  th:text="${transport.createdDate}"></td>
-                        <td th:text="${transport.isactive}" > </td>
-                        <td>
-                            <a class="btn btn-primary" th:href="@{/update-transport/{id}(id = ${transport.id})}">
+                            <a>
                                 <i class="gg-pen"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <a class="btn btn-primary" th:href="@{/delete-transport/{id}(id = ${transport.id})}">
-                                <i class="gg-close-o"></i>
                             </a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <div>
-                    <a class="a" th:href="@{/add-transport}">
-                        <nav style="padding: 0 10px;">
-                            Thêm phương thức
-                        </nav>
-                        <i class="gg-add"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </div>

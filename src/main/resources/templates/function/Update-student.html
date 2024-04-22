@@ -93,7 +93,7 @@
                 </div>
                 <div class="form-group">
                     <label>Giá</label>
-                    <input type="text" class="form-control" th:field="${productDTO.gia}">
+                    <input type="text" class="form-control" th:field="${productDTO.price}">
                 </div>
                 <div class="form-group">
                     <label> Số lượng</label>
@@ -104,8 +104,20 @@
                     <input type="text" class="form-control" th:field="${productDTO.notes}">
                 </div>
                 <div class="form-group">
+                    <label>Ngày tạo</label>
+                    <input type="datetime-local" class="form-control" th:field="${productDTO.createdDate}">
+                </div>
+                <div class="form-group">
+                    <label>Giảm giá</label>
+                    <input type="number" class="form-control" th:field="${productDTO.sales}">
+                </div>
+                <div class="form-group">
+                    <label>Trạng thái</label>
+                    <input type="text" class="form-control" th:field="${productDTO.isactive}">
+                </div>
+                <div class="form-group">
                     <label>Ảnh Sản Phẩm</label>
-                    <input type="text" class="form-control" th:field="${productDTO.anh}">
+                    <input type="text" class="form-control" th:field="${productDTO.image}">
                 </div>
                 <button name="sbm" class="btn btn-success" type="submit">Sửa Sản Phẩm</button>
             </form>

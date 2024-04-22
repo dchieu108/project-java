@@ -9,16 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductDTO {
+public class TransportDTO {
     private Integer id;
     private String name;
-    private String image;
+    private String images;
     private float price;
-    private int sales;
-    private String note;
-    private String category;
-    private int quantity;
     private String createdDate;
-    private String updatedDate;
-    private String idcategory;
+    private String isactive;
 }

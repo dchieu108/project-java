@@ -23,11 +23,11 @@ public class Product {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "Gia")
-    private String gia;
+    @Column(name = "PRICE")
+    private String price;
 
-    @Column(name = "Anh")
-    private String anh;
+    @Column(name = "IMAGE")
+    private String image;
 
     @Column(name = "NOTES")
     private String notes;
@@ -47,4 +47,6 @@ public class Product {
     @Column(name = "ISACTIVE")
     private java.lang.Byte isactive;
 
+    @Column(name = "IDCATEGORY")
+    private java.lang.Byte idcategory;
 }

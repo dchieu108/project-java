@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Phương thức thanh toán</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="../Images/logo_small.f2cdcd68.svg">
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/close-o.css' rel='stylesheet'>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/pen.css' rel='stylesheet'>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/add.css' rel='stylesheet'>
     <style>
         .container-fluid {
             margin-left: 270px;
@@ -39,41 +43,64 @@
             margin: 0 auto;
         }
         .sidebar {
+            background-color: #f0f0f0;
+            padding: 20px;
             position: fixed;
             left: 0;
             top: 0;
-            width: 200px;
+            width: 220px; /* Thay đổi độ rộng */
             height: 100%;
-            background-color: white;
-            padding: 20px;
             overflow-y: auto;
             border: 1px solid #ddd;
         }
 
-        .sidebar ul {
+        .menu-center {
+            text-align: center;
+            margin-bottom: 20px; /* Thêm khoảng cách phía dưới */
+        }
+
+        .logo img {
+            width: 150px;
+        }
+
+        ul {
             list-style-type: none;
             padding: 0;
-            margin: 0;
         }
 
-        .sidebar li {
-            padding: 10px 0;
+        li {
+            margin-bottom: 10px;
+            padding: 15px 0;
         }
 
-        .sidebar a {
-            color: black;
+        a {
             text-decoration: none;
+            color: #333;
+            font-size: 16px; /* Tăng kích thước chữ */
+            display: flex;
+            align-items: center;
         }
 
-        .sidebar a:hover {
-            color: gray;
+        a:hover {
+            color: #1c1cd2;
+        }
+
+        /* CSS cho icon */
+        .icon {
+            margin-right: 10px;
+        }
+
+        .a{
+            display: flex;
+            text-decoration: none;
+
         }
     </style>
 </head>
 <body>
 <div class="sidebar">
     <div class="menu-center ">
-        <div class="logo" style="text-align: center">
+        <div class="logo" style="text-align: center; margin-top: 50px">
             <img style="width: 150px;" src="https://curnonwatch.com/wp-content/uploads/2023/12/logo.svg" >
         </div>
     </div>
@@ -82,20 +109,40 @@
         </li>
         <li>
             <a th:href="@{/payment_method}">
+                <span class="icon"><i class="fas fa-money-check"></i></span>
                 Phương thức thanh toán
             </a>
         </li>
         <li>
             <a th:href="@{/transport_method}">
+                <span class="icon"><i class="fas fa-shipping-fast"></i></span>
                 Phương thức vận chuyển
             </a>
         </li>
         <li>
             <a th:href="@{/admin-product}">
+                <span class="icon"><i class="fas fa-box-open"></i></span>
                 Quản lý sản phẩm
             </a>
         </li>
-        <!-- Thêm các mục menu khác tại đây -->
+        <li>
+            <a th:href="@{/admin-product}">
+                <span class="icon"><i class="fas fa-users"></i></span>
+                Quản lý khách hàng
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/admin-product}">
+                <span class="icon"><i class="fas fa-list-alt"></i></span>
+                Quản lý danh mục sản phẩm
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/admin-product}">
+                <span class="icon"><i class="fas fa-file-invoice"></i></span>
+                Quản lý đơn hàng
+            </a>
+        </li>
     </ul>
 </div>
 
@@ -116,26 +163,41 @@
                         <th>Hình ảnh</th>
                         <th>Ngày tạo</th>
                         <th>Trạng thái</th>
-
+                        <th colspan="2">Tuỳ chọn</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="paymentMethods: ${PayAll}">
-                        <td th:text="${paymentMethods.id}"></td>
-                        <td  th:text="${paymentMethods.name}"></td>
-                        <td th:text="${paymentMethods.notes}"></td>
+                    <tr th:each="payment: ${PayAll}">
+                        <td th:text="${payment.id}"></td>
+                        <td  th:text="${payment.name}"></td>
+                        <td th:text="${payment.notes}"></td>
                         <td>
-                            <img th:src="'../Images/' + ${paymentMethods.image}" style="width:100px;">
+                            <img th:src="'../Images/' + ${payment.image}" style="width:100px;">
                         </td>
-                        <td  th:text="${paymentMethods.createdDate}"></td>
-                        <td th:text="${paymentMethods.isactive}" > </td>
-
+                        <td  th:text="${payment.createdDate}"></td>
+                        <td th:text="${payment.isactive}" > </td>
+                        <td>
+                            <a class="btn btn-primary" th:href="@{/update-payment/{id}(id = ${payment.id})}">
+                                <i class="gg-pen"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" th:href="@{/delete-payment/{id}(id = ${payment.id})}">
+                                <i class="gg-close-o"></i>
+                            </a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
-                <a class="btn btn-primary" th:href="@{/add-payment}">
-                    thêm
-                </a>
+                <div>
+                    <a class="a" th:href="@{/add-payment}">
+                       <nav style="padding: 0 10px;">
+                           Thêm phương thức
+                       </nav>
+                        <i class="gg-add"></i>
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>

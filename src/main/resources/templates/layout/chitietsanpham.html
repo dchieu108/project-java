@@ -346,7 +346,7 @@
         <div class="content" th:action="@{/chitietsanpham/{id}(id = ${id})}" method="post" th:object="${productDTO}">
             <div class="product-img">
                 <div >
-                    <img class="anh" th:src="'../Images/' + ${productDTO.anh}" style="width:85%;">
+                    <img class="anh" th:src="'../Images/' + ${productDTO.image}" style="width:85%;">
                     <div class="anh1">
                         <a href="..//HTML/sanphamchitiet.html">
                             <img class="sd" src="../Images/lace.webp" alt="" style="width: 20%;">
@@ -380,7 +380,7 @@
                 <div class="giaban">
                     <div class="gb">
                         <h3> Giá bán</h3>
-                        <h3 class="fw-900 mota" th:text="${productDTO.gia}"></h3>
+                        <h3 class="fw-900 mota" th:text="${productDTO.price}"></h3>
                         <div class="icon-container">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>

@@ -79,34 +79,34 @@
 <div class="conteiner-fluid">
     <div class="card">
         <div class="card-header">
-            <h2>Thêm Phương Thức Thanh Toán</h2>
+            <h2>Thêm Phương Thức Vận Chuyển</h2>
         </div>
         <div class="card-body">
         </div>
-        <form th:action="@{/addpayment}" method="post" th:object="${payment}">
+        <form th:action="@{/addtransport}" method="post" th:object="${transport}">
             <div class="form-group">
                 <label>  ID:</label>
-                <input type="number" class="form-control" th:field="${payment.id}">
+                <input type="number" class="form-control" th:field="${transport.id}">
             </div>
             <div class="form-group">
                 <label>  Tên phương thức:</label>
-                <input type="text" class="form-control" th:field="${payment.name}">
+                <input type="text" class="form-control" th:field="${transport.name}">
             </div>
             <div class="form-group">
-                <label> Ghi chú</label>
-                <input type="text" class="form-control" th:field="${payment.notes}">
+                <label>  Giá:</label>
+                <input type="text" class="form-control" th:field="${transport.price}">
             </div>
             <div class="form-group">
                 <label> Ngày Tạo</label>
-                <input type="datetime-local" class="form-control" th:field="${payment.createdDate}">
+                <input type="datetime-local" class="form-control" th:field="${transport.createdDate}">
             </div>
             <div class="form-group">
                 <label> Trạng thái</label>
-                <input type="text" class="form-control" th:field="${payment.isactive}">
+                <input type="text" class="form-control" th:field="${transport.isactive}">
             </div>
             <div class="form-group">
                 <label> Ảnh:</label>
-                <input type="file" class="form-control" th:field="${payment.image}">
+                <input type="file" class="form-control" th:field="${transport.images}">
             </div>
             <button name="sbm" class="btn btn-success" type="submit">Thêm Sản Phẩm</button>
         </form>
