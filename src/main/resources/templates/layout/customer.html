@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý đơn hàng</title>
+    <title>Quản lý khách hàng</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="../Images/logo_small.f2cdcd68.svg">
     <link href='https://unpkg.com/css.gg@2.0.0/icons/css/close-o.css' rel='stylesheet'>
@@ -146,36 +146,35 @@
     <div class="card-body">
         <div class="card">
             <div class="card-header">
-                <h1>Quản lý đơn hàng</h1>
+                <h1>Quản lý khách hàng</h1>
             </div>
             <div class="card-body">
                 <table class="table">
                     <thead class="card-header">
                     <tr>
-                        <th>ID đơn hàng</th>
-                        <th> Tên người nhận</th>
+                        <th>ID</th>
+                        <th>Tên khách hàng</th>
+                        <th> Tên tài khoản</th>
                         <th>Địa chỉ</th>
+                        <th>Email</th>
                         <th>Điện thoại</th>
-                        <th>Tổng tiền</th>
-                        <th>Ghi chú</th>
-                        <th>Ngày đặt</th>
+                        <th>Ngày tạo</th>
                         <th>Trạng thái</th>
-                        <th>Tuỳ chọn</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="orders: ${OrdersAll}">
-                        <td th:text="${orders.idorders}"></td>
-                        <td th:text="${orders.nameReciver}"></td>
-                        <td th:text="${orders.address}"></td>
-                        <td th:text="${orders.phone}"></td>
-                        <td th:text="${#numbers.formatDecimal(orders.totalMoney, 0, '0')}"></td>
-                        <td th:text="${orders.notes}"></td>
-                        <td  th:text="${orders.ordersDate}"></td>
-                        <td > </td>
+                    <tr th:each="customer: ${CustAll}">
+                        <td th:text="${customer.id}"></td>
+                        <td  th:text="${customer.name}"></td>
+                        <td th:text="${customer.username}"></td>
+                        <td th:text="${customer.address}"></td>
+                        <td th:text="${customer.email}"></td>
+                        <td th:text="${customer.phone}"></td>
+                        <td  th:text="${customer.createdDate}"></td>
+                        <td th:text="${customer.isactive}" > </td>
                         <td>
-                            <a th:href="@{/orders_details/{id}(id = ${orders.id})}">
-                                Chi tiết
+                            <a>
+                                <i class="gg-pen"></i>
                             </a>
                         </td>
                     </tr>

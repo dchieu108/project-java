@@ -43,12 +43,15 @@ public class ProductService {
     //thêm sinh viên
     public String save(ProductDTO product){
         Product products =new Product();
-        products.setId(products.getId());
+        products.setId(product.getId());
         products.setName(product.getName());
         products.setImage(product.getImage());
+        products.setSales(product.getSales());
         products.setPrice(String.valueOf((long) product.getPrice()));
         products.setCreatedDate(LocalDateTime.parse(product.getCreatedDate()));
-        products.setQuatity(product.getQuantity());
+        products.setQuantity(product.getQuantity());
+        products.setNotes(product.getNotes());
+        products.setIsactive(Byte.valueOf(product.getIsactive()));
         productReposition.save(products);
         return "Thêm thành công";
     }
@@ -62,8 +65,12 @@ public class ProductService {
         products.setId(id);
         products.setImage(productDTO.getImage());
         products.setName(productDTO.getName());
-        products.setQuatity((productDTO.getQuantity()));
+        products.setSales(productDTO.getSales());
+        products.setNotes(productDTO.getNotes());
+        products.setQuantity((productDTO.getQuantity()));
         products.setPrice(String.valueOf((long) productDTO.getPrice()));
+        products.setCreatedDate(LocalDateTime.parse(productDTO.getCreatedDate()));
+        products.setIsactive(Byte.valueOf(productDTO.getIsactive()));
         productReposition.save(products);
         return "Cập nhật thành công";
     }

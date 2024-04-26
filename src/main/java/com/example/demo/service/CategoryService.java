@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Category;
+import com.example.demo.entity.Customer;
 import com.example.demo.entity.PaymentMethod;
 import com.example.demo.repository.CategoryRespotion;
+import com.example.demo.repository.CustomerRepotion;
 import com.example.demo.repository.TransportReposition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,10 @@ import java.util.List;
 public class CategoryService {
     @Autowired
     CategoryRespotion categoryRespotion;
+
     public List<Category> CateAll(){
         List<Category> category = categoryRespotion.findAll();
         return category;
     }
+
 }

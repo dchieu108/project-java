@@ -1,27 +1,21 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Category;
 import com.example.demo.entity.Customer;
-import com.example.demo.entity.PaymentMethod;
 import com.example.demo.service.CategoryService;
-import com.example.demo.service.ProductService;
+import com.example.demo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
 @RestController
-@RequestMapping("/categori")
-
-public class CategoryController {
+@RequestMapping("/customerr")
+public class CustomerController {
     @Autowired
-    private CategoryService categoryService ;
-
+    private CustomerService customerService ;
     @GetMapping("")
-    public List<Category> CateAll() {
-        return categoryService.CateAll();
+    public List<Customer> CustAll() {
+        return customerService.CustAll();
     }
-
 }

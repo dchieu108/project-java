@@ -9,18 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductDTO {
+public class CustomerDTO {
     private Integer id;
     private String name;
-    private String image;
-    private float price;
-    private int sales;
-    private String notes;
-    private String category;
-    private int quantity;
+    private String username;
+    private String password;
+    private String address;
+    private String email;
+    private int phone;
     private String createdDate;
-    private String updatedDate;
-    private String idcategory;
     private String isactive;
-
 }

@@ -3,22 +3,18 @@ package com.example.demo.controller;
 import com.example.demo.dto.PaymentDTO;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.TransportDTO;
-import com.example.demo.entity.Category;
-import com.example.demo.entity.PaymentMethod;
-import com.example.demo.entity.Product;
+import com.example.demo.entity.*;
 
-import com.example.demo.entity.TransportMethod;
-import com.example.demo.service.CategoryService;
-import com.example.demo.service.PaymentService;
-import com.example.demo.service.ProductService;
+import com.example.demo.service.*;
 
-import com.example.demo.service.TransportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Controller
 public class DemoController {
@@ -30,6 +26,12 @@ public class DemoController {
     private TransportService transportService ;
     @Autowired
     private CategoryService categoryService ;
+    @Autowired
+    private CustomerService customerService ;
+    @Autowired
+    private OrderService orderService ;
+    @Autowired
+    private OrderController orderController ;
     // hiển thị trang sản phẩm-user
     @GetMapping("/showAll")
     public String FindAll (Model model){
@@ -44,12 +46,12 @@ public class DemoController {
         model.addAttribute("productAll", product);
         return "layout/admin-product";
     }
-    @GetMapping("/orders")
-    public String Orders (Model model){
-        List<Product> product = productService.findAll();
-        model.addAttribute("productAll", product);
-        return "layout/orders";
-    }
+//    @GetMapping("/orders")
+//    public String Orders (Model model){
+//        List<Product> product = productService.findAll();
+//        model.addAttribute("productAll", product);
+//        return "layout/orders";
+//    }
     // hiển thị trang thanh toán-admin
     @GetMapping("/payment_method")
     public String Paymentmethod (Model model){
@@ -71,6 +73,28 @@ public class DemoController {
         model.addAttribute("CateAll", category);
         return "layout/category";
     }
+
+    // hiển thị trang quản lý người dùng-admin
+    @GetMapping("/customer")
+    public String Customer (Model model){
+        List<Customer> customer = customerService.CustAll();
+        model.addAttribute("CustAll", customer);
+        return "layout/customer";
+    }
+    // hiển thị trang order dùng-admin
+    @GetMapping("/orders")
+    public String Orders (Model model){
+        List<Orders> orders = orderService.OrderAll();
+        model.addAttribute("OrdersAll", orders);
+        return "layout/orders";
+    }
+
+
+
+
+
+
+
 
 
 
@@ -164,7 +188,7 @@ public class DemoController {
         return "function/Update-transport";
     }
 
-    // sửa thanh toán
+    // sửa vận chuyển
     @PostMapping("/updatetransport/{id}")
     public String updateTransport(@PathVariable("id") int id,
                                 @ModelAttribute("transportDTO") TransportDTO transportDTO) {

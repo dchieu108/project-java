@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "product")
-public class Product {
+@Table(name = "customer")
+public class Customer {
     @Id
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,32 +23,26 @@ public class Product {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "PRICE")
-    private String price;
+    @Column(name = "USERNAME")
+    private String username;
 
-    @Column(name = "IMAGE")
-    private String image;
+    @Column(name = "PASSWORD")
+    private String password;
 
-    @Column(name = "NOTES")
-    private String notes;
+    @Column(name = "ADDRESS")
+    private String address;
 
-    @Column(name = "SALES")
-    private Integer sales;
+    @Column(name = "EMAIL")
+    private String email;
 
-    @Column(name = "QUATITY")
-    private Integer quantity;
+    @Column(name = "PHONE")
+    private String phone;
 
     @Column(name = "CREATED_DATE")
     private LocalDateTime createdDate;
 
-    @Column(name = "UPDATED_DATE")
-    private LocalDateTime updatedDate;
-
     @Column(name = "ISACTIVE")
-    private java.lang.Byte isactive;
-
-    @Column(name = "IDCATEGORY")
-    private java.lang.Byte idcategory;
+    private Byte isactive;
 
 
 }
