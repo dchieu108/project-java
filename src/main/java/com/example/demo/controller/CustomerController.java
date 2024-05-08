@@ -18,4 +18,5 @@ public class CustomerController {
     public List<Customer> CustAll() {
         return customerService.CustAll();
     }
+
 }

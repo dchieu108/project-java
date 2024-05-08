@@ -24,27 +24,26 @@
 
         .menu-center {
             text-align: center;
-            margin-bottom: 20px; /* Thêm khoảng cách phía dưới */
-        }
-
-        .logo img {
-            width: 150px;
+            margin-bottom: 20px;
+            margin-left: 30px;
         }
 
         ul {
             list-style-type: none;
-            padding: 0;
+            padding: 15px 0;
+            margin: 0;
         }
 
         li {
             margin-bottom: 10px;
             padding: 15px 0;
-        }
+            margin-left: 8px;
 
+        }
         a {
             text-decoration: none;
             color: #333;
-            font-size: 16px; /* Tăng kích thước chữ */
+            font-size: 15px; /* Tăng kích thước chữ */
             display: flex;
             align-items: center;
         }
@@ -58,6 +57,19 @@
             margin-right: 10px;
         }
 
+        /* CSS cho phần tiêu đề */
+        .b {
+            color: #333; /* Màu chữ cho phần tiêu đề */
+            margin-left: 5px; /* Để cách phần tiêu đề với các mục li */
+            display: block;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .a{
+            display: flex;
+            text-decoration: none;
+
+        }
         /* CSS cho trang chi tiết đơn hàng */
         .page-title {
             text-align: center;
@@ -85,15 +97,16 @@
             margin-bottom: 10px;
             padding: 15px 10px;
             border-bottom: 1px solid rgba(204, 204, 204, 0.5); /* Đặt độ mờ cho đường viền */
-            font-size: 15px;
+            font-size: 16px;
         }
 
         /* Kiểu cho nhãn */
         .label {
-            color: #666;
+            color: black;
             font-weight: bold;
-            width: 200px; /* Đặt chiều rộng cố định cho nhãn */
+            width: 250px; /* Đặt chiều rộng cố định cho nhãn */
             margin-right: 20px; /* Khoảng cách giữa nhãn và giá trị */
+            font-size: 16px;
         }
 
         /* Kiểu cho giá trị đơn hàng */
@@ -105,6 +118,7 @@
             margin-left: 300px;
             border-collapse: collapse; /* Gộp viền của các ô lại với nhau */
             width: 50%;
+            font-size: 18px;
         }
 
         .product-table th, .product-table td {
@@ -124,13 +138,14 @@
 <body>
 <div class="sidebar">
     <div class="menu-center ">
-        <div class="logo" style="text-align: center; margin-top: 50px">
-            <img style="width: 150px;" src="https://curnonwatch.com/wp-content/uploads/2023/12/logo.svg" >
+        <div class="logo" style="text-align: center; margin-top: 30px">
+            <a th:href="@{/showAll}">
+                <img style="width: 150px;" src="https://curnonwatch.com/wp-content/uploads/2023/12/logo.svg" >
+            </a>
         </div>
     </div>
     <ul>
-        <li>
-        </li>
+        <b class="b"> Quản Lý cửa hàng</b>
         <li>
             <a th:href="@{/payment_method}">
                 <span class="icon"><i class="fas fa-money-check"></i></span>
@@ -167,8 +182,17 @@
                 Quản lý đơn hàng
             </a>
         </li>
+        <b class="b">  Tuỳ chọn</b>
+        </li>
+        <li>
+            <a th:href="@{/loginadmin}">
+                <span class="icon"><i class="fas fa-file-invoice"></i></span>
+                Đăng xuất
+            </a>
+        </li>
     </ul>
 </div>
+
 <h1 class="page-title">Chi tiết đơn hàng</h1>
 <div class="card">
     <div th:each="orders: ${Orders}" class="order-details">
@@ -211,11 +235,36 @@
         </div>
         <div class="order-info">
             <label class="label">Giá phương thức vận chuyển:</label>
-            <label th:text="${#numbers.formatDecimal(orders.Transportmethodprice, 0, '0')}" class="order-value"></label>
+            <label th:text="${#numbers.formatDecimal(orders.transportmethodprice, 0, 'COMMA', 0, 'POINT')}" class="order-value"></label>
         </div>
+<!--        <div class="order-info">-->
+<!--            <label class="label" for="status">Trạng thái:</label>-->
+<!--            <select id="sttus" name="status" class="order-value">-->
+<!--                <option th:each="orders : ${Orders}" th:value="${orders.Orderid}" th:text="${orders.Status}" class="order-value"></option>-->
+<!--            </select>-->
+<!--        </div>-->
+        <div class="order-info">
+            <label class="label">Trạng thái:</label>
+            <form th:action="@{/update_status}" method="post" class="order-value" >
+                <select id="status" name="status" th:each="orders : ${Orders}" style="width: 160px; padding: 5px;">
+                    <option th:value="${orders.Orderid}" th:text="${orders.Status}"></option>
+                    <option th:value="${orders.Orderid}" th:selected="${orders.Status == 1}">Đã đặt hàng</option>
+                    <option th:value="${orders.Orderid}" th:selected="${orders.Status == 2}">Đang chuẩn bị hàng</option>
+                    <option th:value="${orders.Orderid}" th:selected="${orders.Status == 3}">Đang giao hàng</option>
+                    <option th:value="${orders.Orderid}" th:selected="${orders.Status == 4}">Đã giao hàng</option>
+                    <option th:value="${orders.Orderid}" th:selected="${orders.Status == 5}">Huỷ đơn hàng</option>
+                </select>
+                <button type="submit">Cập nhật</button>
+            </form>
+        </div>
+
+
+
+
+
         <div class="order-info">
             <label class="label">Tổng tiền:</label>
-            <label th:text="${#numbers.formatDecimal(orders.Totalmoney, 0, '0')}" class="order-value"></label>
+            <label th:text="${#numbers.formatDecimal(orders.totalmoney, 0, 'COMMA', 0, 'POINT')}" class="order-value"></label>
         </div>
     </div>
 </div>

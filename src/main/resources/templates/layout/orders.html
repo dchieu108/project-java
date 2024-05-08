@@ -56,27 +56,26 @@
 
         .menu-center {
             text-align: center;
-            margin-bottom: 20px; /* Thêm khoảng cách phía dưới */
-        }
-
-        .logo img {
-            width: 150px;
+            margin-bottom: 20px;
+            margin-left: 30px;
         }
 
         ul {
             list-style-type: none;
-            padding: 0;
+            padding: 15px 0;
+            margin: 0;
         }
 
         li {
             margin-bottom: 10px;
             padding: 15px 0;
-        }
+            margin-left: 8px;
 
+        }
         a {
             text-decoration: none;
             color: #333;
-            font-size: 16px;
+            font-size: 15px; /* Tăng kích thước chữ */
             display: flex;
             align-items: center;
         }
@@ -90,18 +89,33 @@
             margin-right: 10px;
         }
 
+        /* CSS cho phần tiêu đề */
+        .b {
+            color: #333; /* Màu chữ cho phần tiêu đề */
+            margin-left: 5px; /* Để cách phần tiêu đề với các mục li */
+            display: block;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .a{
+            display: flex;
+            text-decoration: none;
+
+        }
+
     </style>
 </head>
 <body>
 <div class="sidebar">
     <div class="menu-center ">
-        <div class="logo" style="text-align: center; margin-top: 50px">
-            <img style="width: 150px;" src="https://curnonwatch.com/wp-content/uploads/2023/12/logo.svg" >
+        <div class="logo" style="text-align: center; margin-top: 30px">
+            <a th:href="@{/showAll}">
+                <img style="width: 150px;" src="https://curnonwatch.com/wp-content/uploads/2023/12/logo.svg" >
+            </a>
         </div>
     </div>
     <ul>
-        <li>
-        </li>
+        <b class="b"> Quản Lý cửa hàng</b>
         <li>
             <a th:href="@{/payment_method}">
                 <span class="icon"><i class="fas fa-money-check"></i></span>
@@ -127,7 +141,7 @@
             </a>
         </li>
         <li>
-            <a th:href="@{/admin-product}">
+            <a th:href="@{/category}">
                 <span class="icon"><i class="fas fa-list-alt"></i></span>
                 Quản lý danh mục sản phẩm
             </a>
@@ -136,6 +150,14 @@
             <a th:href="@{/orders}">
                 <span class="icon"><i class="fas fa-file-invoice"></i></span>
                 Quản lý đơn hàng
+            </a>
+        </li>
+        <b class="b">  Tuỳ chọn</b>
+        </li>
+        <li>
+            <a th:href="@{/loginadmin}">
+                <span class="icon"><i class="fas fa-file-invoice"></i></span>
+                Đăng xuất
             </a>
         </li>
     </ul>
@@ -152,6 +174,7 @@
                 <table class="table">
                     <thead class="card-header">
                     <tr>
+                        <th>ID</th>
                         <th>ID đơn hàng</th>
                         <th> Tên người nhận</th>
                         <th>Địa chỉ</th>
@@ -165,14 +188,16 @@
                     </thead>
                     <tbody>
                     <tr th:each="orders: ${OrdersAll}">
+                        <td th:text="${orders.id}"></td>
                         <td th:text="${orders.idorders}"></td>
                         <td th:text="${orders.nameReciver}"></td>
                         <td th:text="${orders.address}"></td>
                         <td th:text="${orders.phone}"></td>
-                        <td th:text="${#numbers.formatDecimal(orders.totalMoney, 0, '0')}"></td>
+                        <td th:text="${#numbers.formatDecimal(orders.totalMoney, 0, 'COMMA', 0, 'POINT')}"></td>
                         <td th:text="${orders.notes}"></td>
                         <td  th:text="${orders.ordersDate}"></td>
-                        <td > </td>
+                        <td th:text="${orders.status}"></td>
+
                         <td>
                             <a th:href="@{/orders_details/{id}(id = ${orders.id})}">
                                 Chi tiết

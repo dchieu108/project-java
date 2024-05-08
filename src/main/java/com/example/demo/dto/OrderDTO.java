@@ -19,4 +19,5 @@ public class OrderDTO {
     private int phone;
     private String notes;
     private String nameReciver;
+    private String status;
 }

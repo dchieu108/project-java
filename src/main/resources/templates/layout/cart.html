@@ -1,18 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
-<body>
-
-
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Curron</title>
-    <link rel="icon" href="../Images/logo_small.f2cdcd68.svg">
+    <title> Giỏ hàng</title>
 
+    <!-- ------------add logo on tab---------- -->
+    <link rel="icon" href="../Images/logo_small.f2cdcd68.svg">
 
 
 
@@ -21,6 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link href="https://allfont.net/allfont.css?fonts=roboto-thin" rel="stylesheet" type="text/css" />
+    <!-- // Add the new slick-theme.css if you want the default styling -->
 
 
     <link rel="stylesheet" th:href="@{/Css/layout.css}">
@@ -28,15 +27,53 @@
     <link rel="stylesheet" th:href="@{/Css/headerHover.css}">
     <link rel="stylesheet" th:href="@{/Css/footer.css}">
     <link rel="stylesheet" th:href="@{/Css/reponsive.css}">
+    <link rel="stylesheet" th:href="@{/Css/chitiet.css}">
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+       margin-top: 20px;
+    }
 
+    table th, table td {
+        border: 1px solid #dddddd;
+        padding: 6px;
+        text-align: left;
+        font-size: 18px;
+    }
 
+    table th {
+        background-color: #f2f2f2;
+    }
 
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
+    table tr:hover {
+        background-color: #ddd;
+    }
+
+    .quantity button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        outline: none;
+    }
+
+    .quantity input {
+        width: 40px;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .quantity button:hover {
+        background-color: #ccc;
+    }
+
+</style>
 </head>
-
 <body>
-<!-- start-header -->
-
 <header>
     <nav class="">
         <div class="menu-left position-rel ">
@@ -45,15 +82,15 @@
             </div>
             <ul class="option d-flex ">
                 <li class="nav-item " data-option="false" href="#option-1">
-                    <a href="#">Nam Giới</a>
+                    <a href="#option-1">Nam Giới</a>
 
                 </li>
 
-                <li class="nav-item " data-option="false" href="#option-2" >
+                <li class="nav-item " data-option="false" href="#option-2">
                     <a href="#">Nữ Giới</a>
 
                 </li>
-                <li class="nav-item" data-option="false" href="#option-3" >
+                <li class="nav-item" data-option="false" href="#option-3">
                     <a href="..//View/lienhe.php">Liên Hệ</a>
                 </li>
                 <li class="nav-item" data-option="false" href="#option-4">
@@ -271,8 +308,8 @@
 
         </div>
         <div class="menu-center ">
-            <div class="logo"  ><a th:href="@{/showAll}"><img style="width: 90px;"
-                                                                                             src="https://curnonwatch.com/wp-content/uploads/2023/12/logo.svg" ></a></div>
+            <div class="logo"><a th:href="@{/showAll}"><img style="width: 80px;"
+                                                            src="https://curnonwatch.com/wp-content/uploads/2023/12/logo.svg" ></a></div>
         </div>
         <div class="menu-right ">
             <ul class="d-flex">
@@ -288,13 +325,13 @@
                 </li>
             </ul>
         </div>
+        </div>
     </nav>
 </header>
 
 <!-- end header -->
 
 <section>
-
     <div class="banner">
         <div class="banner-1 position-rel  ">
             <div class="image-banner ">
@@ -315,9 +352,6 @@
 
         </div>
     </div>
-
-    <!-- end-banner -->
-    <!-- Home-Category -->
     <div class="home-category" style="margin-left: 10rem;">
         <div class="list-cate d-flex w-100 ">
             <div class="cate-item   position-rel  ">
@@ -330,6 +364,7 @@
                 <div class="cate-img">
                     <img src="../Images/Dh_Nu_PC_6f0fd420b2.jpg" alt="" style="width:125%;">
                 </div>
+
             </div>
             <div class="cate-item position-rel ">
                 <div class="cate-img">
@@ -342,99 +377,64 @@
 
 
     <!-- End-category -->
-    <div class="product-men ">
-        <div class="product-title text-center">
-            <h1>BEST SELLERS</h1>
-            <div>
-                <form>
-                    <input type="text" class="form-control" placeholder="Tìm kiếm" name="keyword" style="padding: 10px;
-                                                                                                        width: 30%; ">
-                    <button class="btn btn-warning" type="submit" style="padding: 10px;"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-            <!-- <p class="font-15"> XEM TẤT CẢ <i class="fa-solid fa-arrow-right "></i></p> -->
-
-
-        </div>
-        <div class="list-product d-flex w-70" >
-            <div class="product-item w-25 position-rel " th:each="products: ${productAll}">
-                <div class="product-cate position-rel">
-                        <div>
-                            <img th:src="'../Images/' + ${products.image}" class="w-100" alt="cate">
-                        </div>
-                    <div class="product-sale" th:text="${products.sales}+'%'"></div>
-                </div>
-                <div class="product-name text-center">
-                    <h4>KASHMIR</h4>
-                    <h3 th:text="${products.name}"></h3>
-                    <p>
-                        <span class="fw-900" th:text="${#numbers.formatDecimal(products.price, 0, 'COMMA', 0, 'POINT')}"></span>
-                        <span class="text-through" >3.769.000</span>
-                    </p>
-                </div>
-                <a th:href="@{/chitietsanpham/{id}(id = ${products.id})}">
-                    <button>Thêm giỏ hàng</button>
-                </a>
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <div class="banner-bottom mg-topbot position-rel">
-        <div class="banner-1 position-rel  ">
-            <div class="image-banner ">
-                <img class="w-100" src="../Images/Banner_Collection_2_pc_4bfa6ea4ee.webp" alt="">
-                <div class="shop-now ">
-                    <p class="color-white font-15">#Curnonwatch #GFORKS</p>
-                    <h1 class="color-white">MORAINE COLLECTION</h1>
-                    <h4 class="color-white font-15 ">Nét tối giản, nữ tính nhưng không kém phần năng động cho "cô
-                        nàng mùa hè
-                    </h4>
-
-                </div>
-                <div class="banner-2 w-100 ">
-                    <ul class="d-flex w-80 ">
-                        <li><i class="fa-regular fa-circle-play"></i> G-FORKS COLLECTION</li>
-                        <li><i class="fa-regular fa-circle-play"></i> COLOSSEUM COLLECTION</li>
-                        <li><i class="fa-regular fa-circle-play"></i> HAMILTON COLLECTION</li>
-                    </ul>
-                </div>
-            </div>
+    <div class="content-product">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Số lượng</th>
+                <th>Tên</th>
+                <th>Giá</th>
+                <th>Tổng tiền</th>
+                <th>Tuỳ chọn</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${CartItem}">
+                <td th:text="${item.productId}"></td>
+                <td>
+                    <div class="quantity">
+                        <button onclick="decrementQty(this)" type="button">-</button>
+                        <!-- Thêm sự kiện 'input' để cập nhật tổng tiền khi số lượng thay đổi -->
+                        <input oninput="updateSubtotal(this)" type="text" th:value="${item.qty}" style="width: 30%">
+                        <button onclick="incrementQty(this)" type="button">+</button>
+                    </div>
+                </td>
+                <td th:text="${item.name}"></td>
+                <td>
+                    <span th:text="${item.qty * item.price +'VNĐ'}"></span>
+                </td>
+                <td th:text="${item.price+'VNĐ'}"></td>
+                <td>
+                    <form th:action="@{/shopping/remove/{id}(id=${item.productId})}" method="post">
+                        <button type="submit">Xoá</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <a th:href="@{/showAll}">
+                Mua thêm
+            </a>
         </div>
     </div>
-    <!-- Banner-Mobile -->
-    <div class="banner-slider w-100 d-flex">
-        <div class="banner-img position-rel">
-            <img class="w-100" src="../Images/Banner_Collection_2_mobile_5c10678592.webp" alt="">
-            <div class="shop-now ">
-                <p class="color-white font-15">#Curnonwatch #MORAINE</p>
-                <h1 class="color-white">MORAINE COLLECTION</h1>
-                <h4 class="color-white font-15 ">Nét tối giản, nữ tính nhưng không kém phần năng động cho "cô
-                    nàng mùa hè
-                </h4>
-
+    <div class="card">
+            <div class="order-info">
+                <select id="transportMethod" class="order-value" >
+                    <option
+                            th:each="transport : ${TranAll}"
+                            th:value="${transport.name}"
+                            th:text="${transport.name + ' - ' + #numbers.formatDecimal(transport.price, 0, 'COMMA', 0, 'POINT')}"></option>
+                </select>
             </div>
-        </div>
-        <div class="banner-img position-rel">
+        <h3 > Tổng tiền sản phẩm:
+            <span id="totalPrice" th:text="${total+'VNĐ'}">
 
-            <img class="w-100" src="../Images/Colo_Featured_Mob_8c8fb475a8.webp" alt="">
-            <div class="shop-now ">
-                <p class="color-white font-15">#Curnonwatch #GFORKS</p>
-                <h1 class="color-white">MORAINE COLLECTION</h1>
-                <h4 class="color-white font-15 ">Nét tối giản, nữ tính nhưng không kém phần năng động cho "cô
-                    nàng mùa hè
-                </h4>
-
-            </div>
-        </div>
-
+            </span>
+        </h3>
     </div>
-    <!--End banner-Mobile -->
-    <!-- Banner-bottom -->
+
     <div class="story w-70  ">
         <div class="story-title " >
             <div class="story-logo  text-center  ">
@@ -561,7 +561,6 @@
                     </span>
                 <span><a href="..//View/dangki.php">Đăng ký</a></span>
                 <span><a href="..//View/dangnhap.php">Đăng nhập</a></span>
-
             </div>
         </div>
 
@@ -587,10 +586,61 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+<script>
+    // Hàm cập nhật tổng tiền cho từng sản phẩm khi số lượng thay đổi
+    function updateSubtotal(input) {
+        var row = input.closest('tr');
+        var price = parseFloat(row.querySelector('td:nth-child(4)').textContent);
+        var quantity = parseInt(input.value);
+        var subtotal = price * quantity;
+        row.querySelector('td:nth-child(5)').textContent = subtotal.toFixed(1); // Sửa đổi ở đây để hiển thị tổng tiền với 2 chữ số thập phân
+        updateTotalPrice(); // Gọi hàm cập nhật tổng tiền sau khi cập nhật tổng tiền cho từng sản phẩm
+    }
 
+    // Hàm giảm số lượng sản phẩm
+    function decrementQty(button) {
+        var input = button.nextElementSibling;
+        var currentValue = parseInt(input.value);
+        if (currentValue > 1) {
+            input.value = currentValue - 1;
+            updateSubtotal(input);
+        }
+    }
+
+    // Hàm tăng số lượng sản phẩm
+    function incrementQty(button) {
+        var input = button.previousElementSibling;
+        var currentValue = parseInt(input.value);
+        input.value = currentValue + 1;
+        updateSubtotal(input);
+    }
+
+    // Hàm cập nhật tổng tiền của toàn bộ giỏ hàng
+    function updateTotalPrice() {
+        var total = 0;
+
+        // Tính tổng tiền của các sản phẩm trong giỏ hàng
+        document.querySelectorAll('table tbody tr').forEach(row => {
+            var rowTotal = parseFloat(row.querySelector('td:nth-child(5)').textContent);
+            total += rowTotal;
+        });
+
+        // Lấy giá trị của đơn vị vận chuyển từ dropdown
+        var shippingOption = document.getElementById('transportMethod').value;
+        var shippingPrice = parseFloat(shippingOption.split(' - ')[1].replace('VNĐ', '').replace(/\./g, ''));
+
+        // Cộng thêm tiền của đơn vị vận chuyển vào tổng tiền
+        total += shippingPrice;
+
+        // Hiển thị tổng tiền mới trong thẻ span
+        document.getElementById('totalPrice').textContent = 'Tổng tiền: ' + total.toLocaleString() + 'VNĐ'; // Sửa đổi ở đây để hiển thị tổng tiền với 2 chữ số thập phân
+    }
+</script>
 
 <script th:src="@{/Js/heder-hover.js}"></script>
 <script th:src="@{/Js/slick.js}"></script>
+<script th:src="@{/Js/giohang.js}"></script>
 
 </body>
+
 </html>

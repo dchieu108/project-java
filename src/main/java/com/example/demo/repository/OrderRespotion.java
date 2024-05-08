@@ -19,6 +19,7 @@ public interface OrderRespotion extends JpaRepository<Orders,Integer> {
             "    o.TOTAL_MONEY AS totalmoney,\n" +
             "    o.NAME_RECIVER AS namereceiver,\n" +
             "    o.ADDRESS AS shippingaddress,\n" +
+            "    o.STATUS AS status,\n" +
             "    o.PHONE AS shippingphone,\n" +
             "    o.NOTES AS ordernotes, " +
             "    pm.NAME AS paymentmethodname,\n" +

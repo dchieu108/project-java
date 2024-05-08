@@ -56,27 +56,26 @@
 
         .menu-center {
             text-align: center;
-            margin-bottom: 20px; /* Thêm khoảng cách phía dưới */
-        }
-
-        .logo img {
-            width: 150px;
+            margin-bottom: 20px;
+            margin-left: 30px;
         }
 
         ul {
             list-style-type: none;
-            padding: 0;
+            padding: 15px 0;
+            margin: 0;
         }
 
         li {
             margin-bottom: 10px;
             padding: 15px 0;
-        }
+            margin-left: 8px;
 
+        }
         a {
             text-decoration: none;
             color: #333;
-            font-size: 16px;
+            font-size: 15px; /* Tăng kích thước chữ */
             display: flex;
             align-items: center;
         }
@@ -90,18 +89,78 @@
             margin-right: 10px;
         }
 
+        /* CSS cho phần tiêu đề */
+        .b {
+            color: #333; /* Màu chữ cho phần tiêu đề */
+            margin-left: 5px; /* Để cách phần tiêu đề với các mục li */
+            display: block;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .a{
+            display: flex;
+            text-decoration: none;
+
+        }
+        .toggle-button {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 34px;
+            border-radius: 17px;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s; /* Thêm box-shadow vào transition */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Thêm box-shadow */
+            outline: none;
+            border: none;
+        }
+
+        .toggle-button.active {
+            background-color: #5cb85c;
+            text-align: center;
+        }
+
+        .toggle-button .on,
+        .toggle-button .off {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .toggle-button .on {
+            left: 10px;
+            display: none;
+        }
+
+        .toggle-button .off {
+            right: 10px;
+            display: block;
+        }
+
+        .toggle-button.active .on {
+            display: block;
+        }
+
+        .toggle-button.active .off {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
 <div class="sidebar">
     <div class="menu-center ">
-        <div class="logo" style="text-align: center; margin-top: 50px">
-            <img style="width: 150px;" src="https://curnonwatch.com/wp-content/uploads/2023/12/logo.svg" >
+        <div class="logo" style="text-align: center; margin-top: 30px">
+            <a th:href="@{/showAll}">
+                <img style="width: 150px;" src="https://curnonwatch.com/wp-content/uploads/2023/12/logo.svg" >
+            </a>
         </div>
     </div>
     <ul>
-        <li>
-        </li>
+        <b class="b"> Quản Lý cửa hàng</b>
         <li>
             <a th:href="@{/payment_method}">
                 <span class="icon"><i class="fas fa-money-check"></i></span>
@@ -127,7 +186,7 @@
             </a>
         </li>
         <li>
-            <a th:href="@{/admin-product}">
+            <a th:href="@{/category}">
                 <span class="icon"><i class="fas fa-list-alt"></i></span>
                 Quản lý danh mục sản phẩm
             </a>
@@ -136,6 +195,14 @@
             <a th:href="@{/orders}">
                 <span class="icon"><i class="fas fa-file-invoice"></i></span>
                 Quản lý đơn hàng
+            </a>
+        </li>
+        <b class="b">  Tuỳ chọn</b>
+        </li>
+        <li>
+            <a th:href="@{/loginadmin}">
+                <span class="icon"><i class="fas fa-file-invoice"></i></span>
+                Đăng xuất
             </a>
         </li>
     </ul>
@@ -166,7 +233,12 @@
                         <td  th:text="${category.name}"></td>
                         <td th:text="${category.notes}"></td>
                         <td  th:text="${category.createdDate}"></td>
-                        <td th:text="${category.isactive}" > </td>
+                        <td style="text-align: center">
+                            <button class="toggle-button" th:classappend="${category.isactive == 1} ? 'active' : ''" th:attr="data-payment-id=${category.id}">
+                                <span class="on">Bật</span>
+                                <span class="off">Tắt</span>
+                            </button>
+                        </td>
                         <td>
                             <a>
                                 <i class="gg-pen"></i>
@@ -179,5 +251,19 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('.toggle-button').click(function () {
+            $(this).toggleClass('active');
+            if ($(this).hasClass('active')) {
+                $(this).find('.on').show();
+                $(this).find('.off').hide();
+            } else {
+                $(this).find('.on').hide();
+                $(this).find('.off').show();
+            }
+        });
+    });
+</script>
 </body>
 </html>

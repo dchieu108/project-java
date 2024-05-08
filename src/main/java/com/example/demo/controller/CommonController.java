@@ -2,21 +2,24 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.OrderDTO;
 import com.example.demo.dto.PaymentDTO;
+import com.example.demo.dto.TransportDTO;
 import com.example.demo.entity.Orders;
 import com.example.demo.entity.PaymentMethod;
 import com.example.demo.entity.Product;
+import com.example.demo.entity.TransportMethod;
 import com.example.demo.projection.IOrders;
 import com.example.demo.repository.OrderRespotion;
 import com.example.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.criteria.Order;
 import java.util.List;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Controller
 public class CommonController {
@@ -47,9 +50,18 @@ public class CommonController {
         Orders ordersDTO = orderService.findByIdOrder(id);
         model.addAttribute("Orders", orders);
         model.addAttribute("Orders_details", orders_details);
+
         model.addAttribute("id",id);
         return "layout/orders_details";
     }
+
+    @PostMapping("/update_status")
+    public String updateOrderStatus(@RequestParam("Orderid") int Orderid,
+                                    @RequestParam("status") int status) {
+        orderService.updateOrderStatus(Orderid, status);
+        return "redirect:/orders_details";
+    }
+
 
 //    @PostMapping("/updateorders/{id}")
 //    public String updateOrder(@PathVariable("id") int id,

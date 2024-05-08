@@ -7,14 +7,15 @@ import com.example.demo.entity.*;
 
 import com.example.demo.service.*;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Controller
 public class DemoController {
@@ -30,28 +31,38 @@ public class DemoController {
     private CustomerService customerService ;
     @Autowired
     private OrderService orderService ;
-    @Autowired
-    private OrderController orderController ;
-    // hiển thị trang sản phẩm-user
+
+
+
+     //hiển thị trang sản phẩm-user
     @GetMapping("/showAll")
-    public String FindAll (Model model){
-        List<Product> product = productService.findAll();
-        model.addAttribute("productAll", product);
+    public String FindAll (Model model, @Param("keyword") String keyword){
+        List<Product> products = productService.findall();
+        if ( keyword != null){
+            products=this.productService.searchProduct(keyword);
+        }
+        model.addAttribute("productAll", products);
         return "layout/index";
     }
     // hiển thị trang sản phẩm-admin
     @GetMapping("/admin-product")
-    public String Adminproduct (Model model){
-        List<Product> product = productService.findAll();
+    public String Adminproduct(Model model, @RequestParam(name = "pageNo",defaultValue = "1") Integer pageNo,
+                               @RequestParam(name = "keyword", required = false) String keyword) {
+        Page<Product> product;
+        if (keyword != null) {
+            product = productService.searchProduct(keyword, pageNo);
+        } else {
+            product = productService.findAll(pageNo);
+        }
+        model.addAttribute("totalPage",product.getTotalPages());
+        model.addAttribute("currentPage",pageNo);
         model.addAttribute("productAll", product);
         return "layout/admin-product";
     }
-//    @GetMapping("/orders")
-//    public String Orders (Model model){
-//        List<Product> product = productService.findAll();
-//        model.addAttribute("productAll", product);
-//        return "layout/orders";
-//    }
+
+
+
+
     // hiển thị trang thanh toán-admin
     @GetMapping("/payment_method")
     public String Paymentmethod (Model model){
@@ -98,13 +109,13 @@ public class DemoController {
 
 
 
-    //chuyển đến trang thêm sinh viên
+    //chuyển đến trang thêm sản phẩm
     @GetMapping("/add-product")
     public String AddProduct(Model model){
         model.addAttribute("product" ,new Product());
         return "function/Add-student";
     }
-    // thêm sinh viên
+    // thêm sản phẩm
     @PostMapping("/addproduct")
     public String addProduct(@ModelAttribute("product") ProductDTO product) {
         productService.save(product);
@@ -118,7 +129,7 @@ public class DemoController {
         model.addAttribute("payment" ,new PaymentMethod());
         return "function/Add-payment";
     }
-    // thêm phương thức thanh toán
+    // thêm phương thức vận chuyển
     @PostMapping("/addpayment")
     public String addPayment(@ModelAttribute("payment") PaymentDTO payment) {
         paymentService.savePayment(payment);
@@ -139,7 +150,7 @@ public class DemoController {
     }
 
 
-    // chuyển đến trang sửa sinh viên
+    // chuyển đến trang sửa sản phẩm
     @GetMapping("/update-product/{id}")
     public String UpdateStudent(Model model,
                                 @PathVariable("id") int id) {
@@ -149,7 +160,7 @@ public class DemoController {
         return "function/Update-student";
     }
 
-    // sửa sinh viên
+    // sửa sản phẩm
     @PostMapping("/updateproduct/{id}")
     public String updateStudent(@PathVariable("id") int id,
                                 @ModelAttribute("productDTO") ProductDTO productDTO) {

@@ -19,4 +19,6 @@ public class CustomerDTO {
     private int phone;
     private String createdDate;
     private String isactive;
+
+
 }

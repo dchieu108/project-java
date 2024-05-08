@@ -44,6 +44,8 @@ public class Orders {
     @Column(name = "PHONE")
     private String phone;
 
+    @Column(name = "STATUS")
+    private String status;
 
 
 }

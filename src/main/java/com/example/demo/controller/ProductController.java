@@ -1,11 +1,9 @@
 package com.example.demo.controller;
-import com.example.demo.dto.PaymentDTO;
 import com.example.demo.dto.ProductDTO;
-import com.example.demo.entity.PaymentMethod;
 import com.example.demo.entity.Product;
-import com.example.demo.entity.TransportMethod;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
@@ -16,10 +14,10 @@ public class ProductController {
 
 
 
-    @GetMapping("")
-    public List<Product> findAll() {
-        return productService.findAll();
-    }
+//    @GetMapping("")
+//    public List<Product> findAll() {
+//        return productService.findAll();
+//    }
     // thêm sinh viên
     @PostMapping("")
     String save(@RequestBody ProductDTO product) {

@@ -56,30 +56,30 @@
 
         .menu-center {
             text-align: center;
-            margin-bottom: 20px; /* Thêm khoảng cách phía dưới */
-        }
-
-        .logo img {
-            width: 150px;
+            margin-bottom: 20px;
+            margin-left: 30px;
         }
 
         ul {
             list-style-type: none;
-            padding: 0;
+            padding: 15px 0;
+            margin: 0;
         }
 
         li {
             margin-bottom: 10px;
             padding: 15px 0;
-        }
+            margin-left: 8px;
 
+        }
         a {
             text-decoration: none;
             color: #333;
-            font-size: 16px; /* Tăng kích thước chữ */
+            font-size: 15px; /* Tăng kích thước chữ */
             display: flex;
             align-items: center;
         }
+
         a:hover {
             color: #1c1cd2;
         }
@@ -88,10 +88,65 @@
         .icon {
             margin-right: 10px;
         }
+
+        /* CSS cho phần tiêu đề */
+        .b {
+            color: #333; /* Màu chữ cho phần tiêu đề */
+            margin-left: 5px; /* Để cách phần tiêu đề với các mục li */
+            display: block;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
         .a{
             display: flex;
             text-decoration: none;
 
+        }
+        .toggle-button {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 34px;
+            border-radius: 17px;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s; /* Thêm box-shadow vào transition */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Thêm box-shadow */
+            outline: none;
+            border: none;
+        }
+
+        .toggle-button.active {
+            background-color: #5cb85c;
+            text-align: center;
+        }
+
+        .toggle-button .on,
+        .toggle-button .off {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .toggle-button .on {
+            left: 10px;
+            display: none;
+        }
+
+        .toggle-button .off {
+            right: 10px;
+            display: block;
+        }
+
+        .toggle-button.active .on {
+            display: block;
+        }
+
+        .toggle-button.active .off {
+            display: none;
         }
 
     </style>
@@ -99,13 +154,14 @@
 <body>
 <div class="sidebar">
     <div class="menu-center ">
-        <div class="logo" style="text-align: center; margin-top: 50px">
-            <img style="width: 150px;" src="https://curnonwatch.com/wp-content/uploads/2023/12/logo.svg" >
+        <div class="logo" style="text-align: center; margin-top: 30px">
+            <a th:href="@{/showAll}">
+                <img style="width: 150px;" src="https://curnonwatch.com/wp-content/uploads/2023/12/logo.svg" >
+            </a>
         </div>
     </div>
     <ul>
-        <li>
-        </li>
+        <b class="b"> Quản Lý cửa hàng</b>
         <li>
             <a th:href="@{/payment_method}">
                 <span class="icon"><i class="fas fa-money-check"></i></span>
@@ -137,9 +193,17 @@
             </a>
         </li>
         <li>
-            <a th:href="@{/admin-product}">
+            <a th:href="@{/orders}">
                 <span class="icon"><i class="fas fa-file-invoice"></i></span>
                 Quản lý đơn hàng
+            </a>
+        </li>
+        <b class="b">  Tuỳ chọn</b>
+        </li>
+        <li>
+            <a th:href="@{/loginadmin}">
+                <span class="icon"><i class="fas fa-file-invoice"></i></span>
+                Đăng xuất
             </a>
         </li>
     </ul>
@@ -151,6 +215,14 @@
         <div class="card">
             <div class="card-header">
                 <h1>Phương thức vận chuyển</h1>
+            </div>
+            <div>
+                <a class="a" th:href="@{/add-transport}" style="font-size: 20px; padding: 15px 0;">
+                    <nav style="padding: 0 10px;">
+                        Thêm phương thức
+                    </nav>
+                    <i class="gg-add"></i>
+                </a>
             </div>
             <div class="card-body">
                 <table class="table">
@@ -172,9 +244,14 @@
                         <td>
                             <img th:src="'../Images/' + ${transport.images}" style="width:100px;">
                         </td>
-                        <td th:text="${transport.price}"></td>
+                        <td th:text="${#numbers.formatDecimal(transport.price, 0, 'COMMA', 0, 'POINT')}"></td>
                         <td  th:text="${transport.createdDate}"></td>
-                        <td th:text="${transport.isactive}" > </td>
+                        <td style="text-align: center">
+                            <button class="toggle-button" th:classappend="${transport.isactive == 1} ? 'active' : ''" th:attr="data-payment-id=${transport.id}">
+                                <span class="on">Bật</span>
+                                <span class="off">Tắt</span>
+                            </button>
+                        </td>
                         <td>
                             <a class="btn btn-primary" th:href="@{/update-transport/{id}(id = ${transport.id})}">
                                 <i class="gg-pen"></i>
@@ -188,17 +265,23 @@
                     </tr>
                     </tbody>
                 </table>
-                <div>
-                    <a class="a" th:href="@{/add-transport}">
-                        <nav style="padding: 0 10px;">
-                            Thêm phương thức
-                        </nav>
-                        <i class="gg-add"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('.toggle-button').click(function () {
+            $(this).toggleClass('active');
+            if ($(this).hasClass('active')) {
+                $(this).find('.on').show();
+                $(this).find('.off').hide();
+            } else {
+                $(this).find('.on').hide();
+                $(this).find('.off').show();
+            }
+        });
+    });
+</script>
 </body>
 </html>

@@ -282,7 +282,7 @@
                 <li>
                 <li  style="margin: 0 20px;
                                 width:20%;">
-                    <a href="..//View/shopping.php"><span class="del-mob">GIỎ HÀNG</span></i></a>
+                    <a th:href="@{/shopping/cart}"><span class="del-mob">GIỎ HÀNG</span></i></a>
                 <li>
                 <li >
                     <a href="..//View/dangnhap.php"><span class="del-mob">ĐĂNG XUẤT</span></i></a>
@@ -368,19 +368,16 @@
                     <h1><b th:text="${productDTO.name}"></h1>
                 </div >
                 <div class="mota">
-                    <h5> Kích cỡ dây: 20MM</h5>
+                    <h5 th:text=" 'Số lượng: ' +${productDTO.quantity}"></h5>
                 </div>
                 <div class="mota">
-                    <h5> Chất liệu dây: DÂY DA GENUINE</h5>
-                </div>
-                <div class="mota">
-                    <h5> Độ dày : 7MM</h5>
+                    <h5 th:text=" 'Giảm giá: '+ ${productDTO.sales} +'% '"> </h5>
                 </div>
                 <hr>
                 <div class="giaban">
                     <div class="gb">
                         <h3> Giá bán</h3>
-                        <h3 class="fw-900 mota" th:text="${productDTO.price}"></h3>
+                        <h3 class="fw-900 mota" th:text="${#numbers.formatDecimal(productDTO.price, 0, 'COMMA', 0, 'POINT')}"></h3>
                         <div class="icon-container">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -392,7 +389,7 @@
                     </div>
                 </div>
                 <div style="text-align:center; padding:10px 10px">
-                    <a th:href="@{/orders}">
+                    <a th:href="@{/shopping/add/{id}(id=${productDTO.id})}">
                         <button type="submit" name="add-to-cart" style="width:30%;padding: 10px 10px;">
                             THÊM GIỎ HÀNG
                         </button>

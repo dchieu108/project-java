@@ -45,4 +45,5 @@ public class Customer {
     private Byte isactive;
 
 
+
 }
