@@ -381,7 +381,7 @@
         <table>
             <thead>
             <tr>
-                <th>ID</th>
+                <th>Mã sản phẩm</th>
                 <th>Số lượng</th>
                 <th>Tên</th>
                 <th>Giá</th>
@@ -395,16 +395,16 @@
                 <td>
                     <div class="quantity">
                         <button onclick="decrementQty(this)" type="button">-</button>
-                        <!-- Thêm sự kiện 'input' để cập nhật tổng tiền khi số lượng thay đổi -->
                         <input oninput="updateSubtotal(this)" type="text" th:value="${item.qty}" style="width: 30%">
                         <button onclick="incrementQty(this)" type="button">+</button>
                     </div>
                 </td>
                 <td th:text="${item.name}"></td>
                 <td>
-                    <span th:text="${item.qty * item.price +'VNĐ'}"></span>
+                    <span  th:text="${#numbers.formatDecimal(item.qty * item.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+
                 </td>
-                <td th:text="${item.price+'VNĐ'}"></td>
+                <td th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></td>
                 <td>
                     <form th:action="@{/shopping/remove/{id}(id=${item.productId})}" method="post">
                         <button type="submit">Xoá</button>
@@ -421,16 +421,14 @@
     </div>
     <div class="card">
             <div class="order-info">
-                <select id="transportMethod" class="order-value" >
-                    <option
-                            th:each="transport : ${TranAll}"
-                            th:value="${transport.name}"
-                            th:text="${transport.name + ' - ' + #numbers.formatDecimal(transport.price, 0, 'COMMA', 0, 'POINT')}"></option>
+                <select id="transportMethod" class="order-value" onchange="calculateAndUpdateTotalPrice()">
+                    <option value="" selected disabled>Chọn phương thức vận chuyển</option>
+                    <option th:each="transport : ${TranAll}" th:value="${transport.price}" th:text="${transport.name + ' - ' + #numbers.formatDecimal(transport.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></option>
                 </select>
+<!--                <span id="transportPrice" >VNĐ</span>-->
             </div>
         <h3 > Tổng tiền sản phẩm:
-            <span id="totalPrice" th:text="${total+'VNĐ'}">
-
+            <span id="totalPrice" th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
             </span>
         </h3>
     </div>
@@ -587,59 +585,73 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 <script>
-    // Hàm cập nhật tổng tiền cho từng sản phẩm khi số lượng thay đổi
-    function updateSubtotal(input) {
-        var row = input.closest('tr');
-        var price = parseFloat(row.querySelector('td:nth-child(4)').textContent);
-        var quantity = parseInt(input.value);
-        var subtotal = price * quantity;
-        row.querySelector('td:nth-child(5)').textContent = subtotal.toFixed(1); // Sửa đổi ở đây để hiển thị tổng tiền với 2 chữ số thập phân
-        updateTotalPrice(); // Gọi hàm cập nhật tổng tiền sau khi cập nhật tổng tiền cho từng sản phẩm
-    }
-
-    // Hàm giảm số lượng sản phẩm
-    function decrementQty(button) {
-        var input = button.nextElementSibling;
-        var currentValue = parseInt(input.value);
-        if (currentValue > 1) {
-            input.value = currentValue - 1;
-            updateSubtotal(input);
+        function incrementQty(button) {
+            var input = button.parentElement.querySelector('input[type="text"]');
+            var currentValue = parseInt(input.value);
+            if (!isNaN(currentValue)) {
+                input.value = currentValue + 1;
+                updateSubtotal(input);
+            }
         }
-    }
 
-    // Hàm tăng số lượng sản phẩm
-    function incrementQty(button) {
-        var input = button.previousElementSibling;
-        var currentValue = parseInt(input.value);
-        input.value = currentValue + 1;
-        updateSubtotal(input);
-    }
+        function decrementQty(button) {
+            var input = button.parentElement.querySelector('input[type="text"]');
+            var currentValue = parseInt(input.value);
+            if (!isNaN(currentValue) && currentValue > 1) {
+                input.value = currentValue - 1;
+                updateSubtotal(input);
+            }
+        }
 
-    // Hàm cập nhật tổng tiền của toàn bộ giỏ hàng
-    function updateTotalPrice() {
-        var total = 0;
+        function updateSubtotal(input) {
+            var row = input.closest("tr");
+            var price = parseFloat(row.querySelector("td:nth-child(4)").innerText.replace('VNĐ', '').replace(/,/g, ''));
+            var quantity = parseInt(input.value);
+            var subtotal = quantity * price;
+            row.querySelector("td:nth-child(5)").innerText = subtotal.toLocaleString('en') + 'VNĐ';
 
-        // Tính tổng tiền của các sản phẩm trong giỏ hàng
-        document.querySelectorAll('table tbody tr').forEach(row => {
-            var rowTotal = parseFloat(row.querySelector('td:nth-child(5)').textContent);
-            total += rowTotal;
-        });
+            // Cập nhật tổng tiền sản phẩm
+            calculateAndUpdateTotalPrice();
+        }
 
-        // Lấy giá trị của đơn vị vận chuyển từ dropdown
-        var shippingOption = document.getElementById('transportMethod').value;
-        var shippingPrice = parseFloat(shippingOption.split(' - ')[1].replace('VNĐ', '').replace(/\./g, ''));
+        function updateTotalPrice(totalPrice) {
+            document.getElementById("totalPrice").innerText = totalPrice.toLocaleString('en') + 'VNĐ';
+        }
 
-        // Cộng thêm tiền của đơn vị vận chuyển vào tổng tiền
-        total += shippingPrice;
+        // Hàm tính toán và cập nhật tổng tiền sản phẩm và giá vận chuyển
+        function calculateAndUpdateTotalPrice() {
+            // Lấy giá trị tổng tiền sản phẩm từ các sản phẩm trong giỏ hàng
+            var totalProductPrice = 0;
+            document.querySelectorAll('tbody tr').forEach(function(row) {
+                var quantity = parseInt(row.querySelector('.quantity input').value);
+                var price = parseFloat(row.querySelector('td:nth-child(4)').innerText.replace('VNĐ', '').replace(/,/g, ''));
+                totalProductPrice += quantity * price;
+            });
 
-        // Hiển thị tổng tiền mới trong thẻ span
-        document.getElementById('totalPrice').textContent = 'Tổng tiền: ' + total.toLocaleString() + 'VNĐ'; // Sửa đổi ở đây để hiển thị tổng tiền với 2 chữ số thập phân
-    }
+            // Lấy giá trị giá vận chuyển từ select
+            var shippingPrice = parseFloat(document.getElementById("transportMethod").value);
+
+            // Tính tổng tiền sản phẩm và giá vận chuyển
+            var totalPrice = totalProductPrice + shippingPrice;
+
+            // Gọi hàm để cập nhật tổng tiền sản phẩm
+            updateTotalPrice(totalPrice);
+        }
+
 </script>
+
 
 <script th:src="@{/Js/heder-hover.js}"></script>
 <script th:src="@{/Js/slick.js}"></script>
 <script th:src="@{/Js/giohang.js}"></script>
+<script>
+    function updateTransportPrice() {
+        var dropdown = document.getElementById("transportMethod");
+        var selectedIndex = dropdown.selectedIndex;
+        var price = dropdown.options[selectedIndex].value;
+        document.getElementById("transportPrice").textContent = price;
+    }
+</script>
 
 </body>
 
