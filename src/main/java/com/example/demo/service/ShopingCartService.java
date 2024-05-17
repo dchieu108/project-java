@@ -1,12 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.CartItem;
+import com.example.demo.entity.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @SessionScope
@@ -21,6 +23,7 @@ public class ShopingCartService implements ShoppingCartService{
             cartItem.setQty(cartItem.getQty()+1);
         }
     }
+
     @Override
     public void remove(int id){
         maps.remove(id);

@@ -1,0 +1,77 @@
+.content-product {
+    margin-bottom: 20px;
+}
+
+.content-product table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.content-product th,
+.content-product td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.content-product th {
+    background-color: #f2f2f2;
+}
+
+.content-product th:first-child,
+.content-product td:first-child {
+    text-align: left;
+}
+
+.content-product .quantity {
+    display: flex;
+    align-items: center;
+}
+
+.content-product .quantity button {
+    background-color: #f8f9fa;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.content-product .quantity button:hover {
+    background-color: #e2e6ea;
+}
+
+.content-product .quantity input {
+    border: 1px solid #ced4da;
+    padding: 5px;
+    text-align: center;
+}
+
+.content-product .quantity input:focus {
+    outline: none;
+}
+
+.content-product .order-info {
+    margin-bottom: 20px;
+}
+
+.content-product .order-info select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.content-product .order-info select:focus {
+    outline: none;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.card h3 {
+    margin-top: 0;
+}

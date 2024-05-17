@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Xoá sản phẩm</title>
+    <link rel="icon" href="../Images/logo_small.f2cdcd68.svg">
+</head>
+
+<body>
+<style>
+    body {
+        background: url('..//Images/14-1.jpg');
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        flex-direction: column;
+    }
+
+    form {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    a {
+        display: inline-block;
+    }
+
+</style>
+<h1>Bạn có chắc chắn muốn xoá? </h1>
+<form th:action="@{/deleteorders/{Orderid}/{id}(Orderid=${Orderid}, id=${id})}" method="post">
+    <input type="submit" value="Xoá sản phẩm">
+</form>
+
+<a th:href="@{/orders}" > <input type="submit" value="Huỷ" > </a>
+</body>
+</html>

@@ -121,7 +121,7 @@
             font-size: 18px;
         }
 
-        .product-table th, .product-table td {
+        .product-table th, .product-table td  {
             padding: 8px; /* Thêm padding cho cả thẻ th và td */
             text-align: left; /* Căn trái nội dung của cả thẻ th và td */
             border-bottom: 1px solid #ddd; /* Đường kẻ ngang dưới của mỗi hàng */
@@ -257,14 +257,16 @@
                 <button type="submit">Cập nhật</button>
             </form>
         </div>
-
-
-
-
-
         <div class="order-info">
             <label class="label">Tổng tiền:</label>
             <label th:text="${#numbers.formatDecimal(orders.totalmoney, 0, 'COMMA', 0, 'POINT')}" class="order-value"></label>
+        </div>
+        <div class="order-info">
+            <a class="a" th:href="@{/add-orders/{id}(id = ${orders.Orderid})}" style="font-size: 20px">
+                <nav style="padding: 0 10px;">
+                    Thêm sản phẩm
+                </nav>
+            </a>
         </div>
     </div>
 </div>
@@ -278,11 +280,17 @@
     <tr th:each="orders_details: ${Orders_details}">
         <td th:text="${orders_details.Productname}"></td>
         <td>
-            <img th:src="'../Images/' + ${orders_details.Productimage}" style="width:100px;">
+            <img th:src="@{'/Images/' + ${orders_details.Productimage}}" style="width:100px;">
         </td>
-        <td th:text="${#numbers.formatDecimal(orders_details.Productprice, 0, '0')}"></td>
+        <td th:text="${#numbers.formatDecimal(orders_details.Productprice, 0, 'COMMA', 0, 'POINT')}"></td>
+        <td th:each="orders: ${Orders}">
+            <a th:href="@{/delete-orders/{Orderid}/{id}(Orderid=${orders.Orderid}, id=${orders_details.Productid})}">
+                <i class="gg-close-o"></i>
+            </a>
+        </td>
     </tr>
     </tbody>
+
 </table>
 </body>
 </html>

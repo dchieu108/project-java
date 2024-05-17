@@ -21,6 +21,7 @@ public class ProductDTO {
     private String createdDate;
     private String updatedDate;
     private String idcategory;
+//    private CategoryDTO categoryDTO;
     private String isactive;
 
 }

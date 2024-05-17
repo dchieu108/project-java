@@ -29,50 +29,50 @@
     <link rel="stylesheet" th:href="@{/Css/reponsive.css}">
     <link rel="stylesheet" th:href="@{/Css/chitiet.css}">
     <link rel="stylesheet" th:href="@{/Css/cart.css}">
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-       margin-top: 20px;
-    }
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-    table th, table td {
-        border: 1px solid #dddddd;
-        padding: 6px;
-        text-align: left;
-        font-size: 18px;
-    }
+        table th, table td {
+            border: 1px solid #dddddd;
+            padding: 6px;
+            text-align: left;
+            font-size: 18px;
+        }
 
-    table th {
-        background-color: #f2f2f2;
-    }
+        table th {
+            background-color: #f2f2f2;
+        }
 
-    table tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-    table tr:hover {
-        background-color: #ddd;
-    }
+        table tr:hover {
+            background-color: #ddd;
+        }
 
-    .quantity button {
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-        outline: none;
-    }
+        .quantity button {
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            outline: none;
+        }
 
-    .quantity input {
-        width: 40px;
-        text-align: center;
-        font-size: 18px;
-    }
+        .quantity input {
+            width: 40px;
+            text-align: center;
+            font-size: 18px;
+        }
 
-    .quantity button:hover {
-        background-color: #ccc;
-    }
+        .quantity button:hover {
+            background-color: #ccc;
+        }
 
-</style>
+    </style>
 </head>
 <body>
 <header>
@@ -375,7 +375,7 @@
         </div>
     </div>
     <div>
-        <h1 style="text-align: center">GIỎ HÀNG</h1>
+        <h1 style="text-align: center">THANH TOÁN</h1>
     </div>
 
 
@@ -423,23 +423,23 @@
         </div>
     </div>
     <div class="card">
-            <div class="order-info">
-                <select id="transportMethod" class="order-value" onchange="calculateAndUpdateTotalPrice()">
-                    <option value="" selected disabled>Chọn phương thức vận chuyển</option>
-                    <option th:each="transport : ${TranAll}" th:value="${transport.price}" th:text="${transport.name + ' - ' + #numbers.formatDecimal(transport.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></option>
-                </select>
-            </div>
+        <div class="order-info">
+            <select id="transportMethod" class="order-value" onchange="calculateAndUpdateTotalPrice()">
+                <option value="" selected disabled>Chọn phương thức vận chuyển</option>
+                <option th:each="transport : ${TranAll}" th:value="${transport.price}" th:text="${transport.name + ' - ' + #numbers.formatDecimal(transport.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></option>
+            </select>
+        </div>
         <h3 > Tổng tiền sản phẩm:
             <span id="totalPrice" th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
             </span>
         </h3>
-        <div th:each="item : ${CartItem}">
-            <a th:href="@{/shopping/thanhtoan/{id}(id=${item.productId})}">
-                <button type="submit" >
-                    Thanh toán
-                </button>
-            </a>
-        </div>
+<!--        <div th:each="item : ${CartItem}">-->
+<!--            <a th:href="@{/shopping/thanhtoan/{id}(id=${item.productId})}">-->
+<!--                <button type="submit" >-->
+<!--                    Thanh toán-->
+<!--                </button>-->
+<!--            </a>-->
+<!--        </div>-->
     </div>
 
     <div class="story w-70  ">
@@ -594,58 +594,58 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 <script>
-        function incrementQty(button) {
-            var input = button.parentElement.querySelector('input[type="text"]');
-            var currentValue = parseInt(input.value);
-            if (!isNaN(currentValue)) {
-                input.value = currentValue + 1;
-                updateSubtotal(input);
-            }
+    function incrementQty(button) {
+        var input = button.parentElement.querySelector('input[type="text"]');
+        var currentValue = parseInt(input.value);
+        if (!isNaN(currentValue)) {
+            input.value = currentValue + 1;
+            updateSubtotal(input);
         }
+    }
 
-        function decrementQty(button) {
-            var input = button.parentElement.querySelector('input[type="text"]');
-            var currentValue = parseInt(input.value);
-            if (!isNaN(currentValue) && currentValue > 1) {
-                input.value = currentValue - 1;
-                updateSubtotal(input);
-            }
+    function decrementQty(button) {
+        var input = button.parentElement.querySelector('input[type="text"]');
+        var currentValue = parseInt(input.value);
+        if (!isNaN(currentValue) && currentValue > 1) {
+            input.value = currentValue - 1;
+            updateSubtotal(input);
         }
+    }
 
-        function updateSubtotal(input) {
-            var row = input.closest("tr");
-            var price = parseFloat(row.querySelector("td:nth-child(4)").innerText.replace('VNĐ', '').replace(/,/g, ''));
-            var quantity = parseInt(input.value);
-            var subtotal = quantity * price;
-            row.querySelector("td:nth-child(5)").innerText = subtotal.toLocaleString('en') + 'VNĐ';
+    function updateSubtotal(input) {
+        var row = input.closest("tr");
+        var price = parseFloat(row.querySelector("td:nth-child(4)").innerText.replace('VNĐ', '').replace(/,/g, ''));
+        var quantity = parseInt(input.value);
+        var subtotal = quantity * price;
+        row.querySelector("td:nth-child(5)").innerText = subtotal.toLocaleString('en') + 'VNĐ';
 
-            // Cập nhật tổng tiền sản phẩm
-            calculateAndUpdateTotalPrice();
-        }
+        // Cập nhật tổng tiền sản phẩm
+        calculateAndUpdateTotalPrice();
+    }
 
-        function updateTotalPrice(totalPrice) {
-            document.getElementById("totalPrice").innerText = totalPrice.toLocaleString('en') + 'VNĐ';
-        }
+    function updateTotalPrice(totalPrice) {
+        document.getElementById("totalPrice").innerText = totalPrice.toLocaleString('en') + 'VNĐ';
+    }
 
-        // Hàm tính toán và cập nhật tổng tiền sản phẩm và giá vận chuyển
-        function calculateAndUpdateTotalPrice() {
-            // Lấy giá trị tổng tiền sản phẩm từ các sản phẩm trong giỏ hàng
-            var totalProductPrice = 0;
-            document.querySelectorAll('tbody tr').forEach(function(row) {
-                var quantity = parseInt(row.querySelector('.quantity input').value);
-                var price = parseFloat(row.querySelector('td:nth-child(4)').innerText.replace('VNĐ', '').replace(/,/g, ''));
-                totalProductPrice += quantity * price;
-            });
+    // Hàm tính toán và cập nhật tổng tiền sản phẩm và giá vận chuyển
+    function calculateAndUpdateTotalPrice() {
+        // Lấy giá trị tổng tiền sản phẩm từ các sản phẩm trong giỏ hàng
+        var totalProductPrice = 0;
+        document.querySelectorAll('tbody tr').forEach(function(row) {
+            var quantity = parseInt(row.querySelector('.quantity input').value);
+            var price = parseFloat(row.querySelector('td:nth-child(4)').innerText.replace('VNĐ', '').replace(/,/g, ''));
+            totalProductPrice += quantity * price;
+        });
 
-            // Lấy giá trị giá vận chuyển từ select
-            var shippingPrice = parseFloat(document.getElementById("transportMethod").value);
+        // Lấy giá trị giá vận chuyển từ select
+        var shippingPrice = parseFloat(document.getElementById("transportMethod").value);
 
-            // Tính tổng tiền sản phẩm và giá vận chuyển
-            var totalPrice = totalProductPrice + shippingPrice;
+        // Tính tổng tiền sản phẩm và giá vận chuyển
+        var totalPrice = totalProductPrice + shippingPrice;
 
-            // Gọi hàm để cập nhật tổng tiền sản phẩm
-            updateTotalPrice(totalPrice);
-        }
+        // Gọi hàm để cập nhật tổng tiền sản phẩm
+        updateTotalPrice(totalPrice);
+    }
 
 </script>
 

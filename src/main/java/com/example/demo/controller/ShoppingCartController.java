@@ -1,10 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.CartItem;
+import com.example.demo.entity.PaymentMethod;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.TransportMethod;
+import com.example.demo.service.PaymentService;
 import com.example.demo.service.ProductService;
-import com.example.demo.service.ShopingCartService;
 import com.example.demo.service.ShoppingCartService;
 import com.example.demo.service.TransportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Controller
 @RequestMapping("/shopping")
@@ -26,6 +25,8 @@ public class ShoppingCartController {
     ShoppingCartService shoppingCartService;
     @Autowired
     TransportService transportService;
+    @Autowired
+    PaymentService paymentService;
     @GetMapping("/cart")
     public String viewCart(Model model){
         List<TransportMethod> transport = transportService.TranAll();
@@ -34,6 +35,15 @@ public class ShoppingCartController {
         model.addAttribute("CartItem",shoppingCartService.getAllItems());
         model.addAttribute("total",String.format("%.2f", total));
         return "layout/cart";
+    }
+    @GetMapping("/thanhtoan/{id}")
+    public String Thanhtoan(Model model){
+        List<TransportMethod> transport = transportService.TranAll();
+        model.addAttribute("TranAll", transport);
+        double total = shoppingCartService.getTotal();
+        model.addAttribute("CartItem",shoppingCartService.getAllItems());
+        model.addAttribute("total",String.format("%.2f", total));
+        return "layout/thanhtoan";
     }
     @GetMapping("/add/{id}")
     public String addCart(@PathVariable("id") Integer id){
@@ -58,10 +68,4 @@ public class ShoppingCartController {
         shoppingCartService.updatee(productId, qty);
         return "redirect:/shopping/cart";
     }
-//    @GetMapping("/shopping/cart")
-//    public String Transportmethod (Model model){
-//        List<TransportMethod> transport = transportService.TranAll();
-//        model.addAttribute("TranAll", transport);
-//        return "layout/cart";
-//    }
 }

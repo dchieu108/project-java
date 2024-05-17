@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.CategoryDTO;
 import com.example.demo.dto.PaymentDTO;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.TransportDTO;
@@ -54,6 +55,7 @@ public class DemoController {
         } else {
             product = productService.findAll(pageNo);
         }
+
         model.addAttribute("totalPage",product.getTotalPages());
         model.addAttribute("currentPage",pageNo);
         model.addAttribute("productAll", product);
