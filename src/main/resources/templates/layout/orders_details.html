@@ -259,12 +259,19 @@
         </div>
         <div class="order-info">
             <label class="label">Tổng tiền:</label>
-            <label th:text="${#numbers.formatDecimal(orders.totalmoney, 0, 'COMMA', 0, 'POINT')}" class="order-value"></label>
+            <label th:text="${#numbers.formatDecimal(TotalMoney, 0, 'COMMA', 0, 'POINT')}" class="order-value"></label>
         </div>
         <div class="order-info">
             <a class="a" th:href="@{/add-orders/{id}(id = ${orders.Orderid})}" style="font-size: 20px">
                 <nav style="padding: 0 10px;">
                     Thêm sản phẩm
+                </nav>
+            </a>
+        </div>
+        <div class="order-info">
+            <a class="a" th:href="@{/update-orders/{id}(id = ${orders.Orderid})}" style="font-size: 20px">
+                <nav style="padding: 0 10px;">
+                 Chỉnh sửa
                 </nav>
             </a>
         </div>

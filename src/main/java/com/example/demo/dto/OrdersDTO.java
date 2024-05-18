@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderDTO {
+public class OrdersDTO {
     private Integer id;
-    private String idorder;
+    private String idorders;
     private String idcustomer;
     private String ordersDate;
     private String address;

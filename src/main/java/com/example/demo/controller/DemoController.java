@@ -6,6 +6,8 @@ import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.TransportDTO;
 import com.example.demo.entity.*;
 
+import com.example.demo.projection.IOrders;
+import com.example.demo.repository.OrderRespotion;
 import com.example.demo.service.*;
 
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
@@ -32,6 +34,8 @@ public class DemoController {
     private CustomerService customerService ;
     @Autowired
     private OrderService orderService ;
+    @Autowired
+    private OrderRespotion orderRespotion ;
 
 
 
@@ -96,11 +100,25 @@ public class DemoController {
     }
     // hiển thị trang order dùng-admin
     @GetMapping("/orders")
-    public String Orders (Model model){
+    public String Orders(Model model) {
         List<Orders> orders = orderService.OrderAll();
+        for (Orders order : orders) {
+            int Orderid = order.getId();
+            List<IOrders> orders_details = orderRespotion.findOrdersDetailsById(Orderid);
+            double totalMoney = orders_details.stream()
+                    .mapToDouble(orderDetail -> Double.parseDouble(orderDetail.getProductprice()))
+                    .sum();
+            double transportMethodPrice = transportService.getTransportMethodPriceForOrder(Orderid);
+            double totalPrice = totalMoney + transportMethodPrice;
+            order.setTotalMoney(totalPrice);
+        }
         model.addAttribute("OrdersAll", orders);
         return "layout/orders";
     }
+
+
+
+
 
 
 

@@ -187,23 +187,23 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="orders: ${OrdersAll}">
-                        <td th:text="${orders.id}"></td>
-                        <td th:text="${orders.idorders}"></td>
-                        <td th:text="${orders.nameReciver}"></td>
-                        <td th:text="${orders.address}"></td>
-                        <td th:text="${orders.phone}"></td>
-                        <td th:text="${#numbers.formatDecimal(orders.totalMoney, 0, 'COMMA', 0, 'POINT')}"></td>
-                        <td th:text="${orders.notes}"></td>
-                        <td  th:text="${orders.ordersDate}"></td>
-                        <td th:text="${orders.status}"></td>
-
+                    <tr th:each="order : ${OrdersAll}">
+                        <td th:text="${order.id}"></td>
+                        <td th:text="${order.idorders}"></td>
+                        <td th:text="${order.nameReciver}"></td>
+                        <td th:text="${order.address}"></td>
+                        <td th:text="${order.phone}"></td>
+                        <td th:text="${#numbers.formatDecimal(order.totalMoney, 0, 'COMMA', 0, 'POINT')}"></td>
+                        <td th:text="${order.notes}"></td>
+                        <td th:text="${order.ordersDate}"></td>
+                        <td th:text="${order.status}"></td>
                         <td>
-                            <a th:href="@{/orders_details/{id}(id = ${orders.id})}">
+                            <a th:href="@{/orders_details/{id}(id = ${order.id})}">
                                 Chi tiết
                             </a>
                         </td>
                     </tr>
+
                     </tbody>
                 </table>
             </div>

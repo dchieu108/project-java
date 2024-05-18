@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.OrdersDTO;
 import com.example.demo.dto.Orders_detailsDTO;
 import com.example.demo.entity.*;
 import com.example.demo.repository.OrderRespotion;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,16 +41,32 @@ public class OrderService {
         return orders;
     }
 
-    @Transactional
-    public void updateOrderStatus(int Orderid, int status) {
-        Optional<Orders> optionalOrder = orderRespotion.findById(Orderid);
-        if (optionalOrder.isPresent()) {
-            Orders orders = optionalOrder.get();
-            orders.setStatus(String.valueOf(status));
-            orderRespotion.save(orders);
-        } else {
-            throw new RuntimeException("Không tìm thấy đơn hàng có ID: " + Orderid);
-        }
+//    @Transactional
+//    public void updateOrderStatus(int Orderid, int status) {
+//        Optional<Orders> optionalOrder = orderRespotion.findById(Orderid);
+//        if (optionalOrder.isPresent()) {
+//            Orders orders = optionalOrder.get();
+//            orders.setStatus(String.valueOf(status));
+//            orderRespotion.save(orders);
+//        } else {
+//            throw new RuntimeException("Không tìm thấy đơn hàng có ID: " + Orderid);
+//        }
+//    }
+    public String updateOrders(int id, OrdersDTO ordersDTO) {
+        boolean existsById = orderRespotion.existsById(id);
+        if (!existsById) return "Không có sản phẩm có id = " +id;
+        Orders orders =new Orders();
+        orders.setId(id);
+        orders.setStatus(ordersDTO.getStatus());
+        orders.setIdcustomer(Integer.valueOf(ordersDTO.getIdcustomer()));
+        orders.setOrdersDate(ordersDTO.getOrdersDate());
+        orders.setIdorders(String.valueOf(ordersDTO.getIdorders()));
+        orders.setNotes(ordersDTO.getNotes());
+        orders.setNameReciver(ordersDTO.getNameReciver());
+        orders.setAddress(ordersDTO.getAddress());
+        orders.setPhone(String.valueOf(ordersDTO.getPhone()));
+        orderRespotion.save(orders);
+        return "Cập nhật thành công";
     }
 
     public String saveOrder(int Orderid, Orders_detailsDTO ordersDetailsDTO) {

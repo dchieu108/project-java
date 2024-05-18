@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -24,7 +25,7 @@ public class Orders {
     private String idorders;
 
     @Column(name = "ORDERS_DATE")
-    private LocalDateTime ordersDate;
+    private String ordersDate;
 
     @Column(name = "IDCUSTOMER")
     private Integer idcustomer;
@@ -46,6 +47,4 @@ public class Orders {
 
     @Column(name = "STATUS")
     private String status;
-
-
 }

@@ -70,4 +70,15 @@ public class TransportService {
         transportReposition.deleteById(id);
         return "Xóa thành công";
     }
+    public double getTransportMethodPriceForOrder(int id) {
+
+        TransportMethod transportMethod = findByIdTransport(id);
+        if (transportMethod != null) {
+            return transportMethod.getPrice();
+        } else {
+            return 0.0;
+        }
+    }
+
+
 }

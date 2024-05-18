@@ -10,12 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.persistence.criteria.Order;
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Controller
 public class CommonController {
@@ -46,9 +42,21 @@ public class CommonController {
         List<IOrders> orders = orderRespotion.findOrdersById(id);
         List<IOrders> orders_details = orderRespotion.findOrdersDetailsById(id);
         List<Product> product = productService.findall();
+
+        double totalMoney = orders_details.stream()
+                .mapToDouble(orderDetail -> Double.parseDouble(orderDetail.getProductprice()))
+                .sum();
+        // Lấy giá phương thức vận chuyển từ đơn hàng đầu tiên (giả sử là giống nhau cho tất cả các chi tiết đơn hàng)
+        double transportMethodPrice = Double.parseDouble(orders.get(0).getTransportmethodprice());
+
+        // Tổng tiền mới bao gồm cả giá sản phẩm và giá phương thức vận chuyển
+        double totalPrice = totalMoney + transportMethodPrice;
+
         model.addAttribute("productAll", product);
         Orders ordersDTO = orderService.findByIdOrder(id);
         model.addAttribute("Orders", orders);
+        // Thêm biến totalMoney vào model
+        model.addAttribute("TotalMoney", totalPrice);
         model.addAttribute("Orders_details", orders_details);
 
         model.addAttribute("id",id);
@@ -75,7 +83,7 @@ public class CommonController {
         model.addAttribute("Orders", orders);
         model.addAttribute("orders_details", orders_details);
         model.addAttribute("Orderid", Orderid);
-        model.addAttribute("productList", productList); // Thêm Orderid vào model để sử dụng trong template
+        model.addAttribute("productList", productList);
         return "function/Add-orders";
     }
 
@@ -88,7 +96,24 @@ public class CommonController {
         return "redirect:/orders_details/" + Orderid;
     }
 
+    //chuyển đến trang sửa sản phẩm
+    @GetMapping("/update-orders/{id}")
+    public String UpdateOrders(Model model,
+                                @PathVariable("id") int id) {
+        model.addAttribute("id", id);
+        Orders ordersDTO = orderService.findByIdOrder(id);
+        model.addAttribute("ordersDTO", ordersDTO);
+        return "function/Update-orders";
+    }
 
+    // sửa sản phẩm
+    @PostMapping("/updateorders/{id}")
+    public String updateOrders(@PathVariable("id") int id,
+                                @ModelAttribute("ordersDTO") OrdersDTO ordersDTO) {
+        orderService.updateOrders(id, ordersDTO);
+        return "redirect:/orders";
+
+    }
 
 
     //chuyển đến xoá sản phẩm

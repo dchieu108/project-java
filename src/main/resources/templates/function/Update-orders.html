@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cập nhật đơn hàng</title>
+    <link rel="icon" href="../Images/logo_small.f2cdcd68.svg">
+</head>
+<body>
+<style>
+    body {
+        background: url('..//Images/slider-04.9608317a.jpg');
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner-fluid {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+        text-align:center;
+
+    }
+
+    .card {
+        width: 400px;
+        background-color: rgb(167, 164, 164);
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    .card-header h2 {
+        margin: 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+
+    .form-group label {
+        flex: 0 0 30%;
+        margin-right: 10px;
+    }
+
+    .form-control {
+        flex: 1;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    .btn-success {
+        background-color: black;
+        border: none;
+        color: white;
+        padding: 15px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 15px;
+        cursor: pointer;
+        border-radius: 4px;
+        width: calc(100% - 40px);
+    }
+
+
+</style>
+<div class="conteiner-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h2>Chỉnh sửa đơn hàng</h2>
+        </div>
+        <form th:action="@{/updateorders/{id}(id = ${id})}" method="post" th:object="${ordersDTO}">
+            <div class="form-group">
+                <label>ID</label>
+                <input type="number" class="form-control" th:field="${ordersDTO.id}" readonly>
+            </div>
+            <div class="form-group">
+                <label>ID Hoá đơn</label>
+                <input type=number class="form-control" th:field="${ordersDTO.idorders}" readonly>
+            </div>
+            <div class="form-group">
+                <label>ID Khách hàng</label>
+                <input type="number" class="form-control" th:field="${ordersDTO.idcustomer}" readonly>
+            </div>
+            <div class="form-group">
+                <label>Ngày đặt</label>
+                <input type="text" class="form-control" th:field="${ordersDTO.ordersDate}"  readonly>
+            </div>
+
+            <div class="form-group">
+                <label> Trạng thái</label>
+                <input type="text" class="form-control" th:field="${ordersDTO.status}" readonly>
+            </div>
+            <div class="form-group">
+                <label> Ghi chú</label>
+                <input type="text" class="form-control" th:field="${ordersDTO.notes}">
+            </div>
+            <div class="form-group">
+                <label>Tên người nhận</label>
+                <input type="text" class="form-control" th:field="${ordersDTO.nameReciver}">
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ</label>
+                <input type="text" class="form-control" th:field="${ordersDTO.address}">
+            </div>
+            <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="tel" class="form-control" pattern="[0-9]{10}" th:field="${ordersDTO.phone}">
+            </div>
+            <button name="sbm" class="btn btn-success" type="submit">Cập nhật đơn hàng</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
