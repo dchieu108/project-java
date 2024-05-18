@@ -60,16 +60,10 @@ public class OrderService {
     }
 
 
-//    public String deleteProduct(int id,int Orderid) {
-//        // Kiểm tra xem sản phẩm có tồn tại trong cơ sở dữ liệu không
-//        Optional<OrdersDetails> orderDetailsOptional = ordersDetailsRespotion.findById(id);
-//        if (orderDetailsOptional.isPresent()) {
-//            // Nếu sản phẩm tồn tại, thực hiện xoá
-//            ordersDetailsRespotion.deleteById(id,Orderid);
-//            return "Xóa sản phẩm thành công";
-//        } else {
-//            // Nếu sản phẩm không tồn tại, trả về thông báo lỗi
-//            return "Không tìm thấy sản phẩm để xóa";
-//        }
-//    }
+    public String deleteProduct(int id) {
+        boolean existsById = ordersDetailsRespotion.existsById(id);
+        if (!existsById) return "Không có sinh viên có id = " +id;
+        ordersDetailsRespotion.deleteById(id);
+        return "Xóa thành công";
+    }
 }

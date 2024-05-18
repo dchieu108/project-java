@@ -31,7 +31,7 @@
 
 </style>
 <h1>Bạn có chắc chắn muốn xoá? </h1>
-<form th:action="@{/deleteorders/{Orderid}/{id}(Orderid=${Orderid}, id=${id})}" method="post">
+<form th:action="@{/deleteorders/{id}(id=${id})}" method="post">
     <input type="submit" value="Xoá sản phẩm">
 </form>
 

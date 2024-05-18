@@ -43,6 +43,7 @@ public interface OrderRespotion extends JpaRepository<Orders,Integer> {
             "    o.ID = :orderId", nativeQuery = true)
     List<IOrders> findOrdersById(@Param("orderId") Integer orderId);
     @Query(value = "SELECT\n" +
+            "    od.ID AS orderDetailsId,\n" +
             "    p.NAME AS productname,\n" +
             "    p.ID AS productid,\n" +
             "    p.IMAGE AS productimage,\n" +

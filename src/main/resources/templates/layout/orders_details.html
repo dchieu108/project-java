@@ -284,7 +284,7 @@
         </td>
         <td th:text="${#numbers.formatDecimal(orders_details.Productprice, 0, 'COMMA', 0, 'POINT')}"></td>
         <td th:each="orders: ${Orders}">
-            <a th:href="@{/delete-orders/{Orderid}/{id}(Orderid=${orders.Orderid}, id=${orders_details.Productid})}">
+            <a th:href="@{/delete-orders/{Orderid}/{id}(Orderid=${orders.Orderid}, id=${orders_details.OrderDetailsId})}">
                 <i class="gg-close-o"></i>
             </a>
         </td>

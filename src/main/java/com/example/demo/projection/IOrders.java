@@ -17,4 +17,5 @@ public interface IOrders {
    String getProductprice();
    String getStatus();
     String getProductid();
+    String getOrderDetailsId();
 }

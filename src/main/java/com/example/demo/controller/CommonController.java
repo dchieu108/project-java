@@ -94,25 +94,22 @@ public class CommonController {
     //chuyển đến xoá sản phẩm
     @GetMapping("/delete-orders/{Orderid}/{id}")
     public String showDelete(Model model,
-                             @PathVariable("Orderid") int Orderid,
                              @PathVariable("id") int id) {
-        List<IOrders> orders = orderRespotion.findOrdersById(Orderid);
-        List<IOrders> orders_details = orderRespotion.findOrdersDetailsById(Orderid);
-        Product productDTO = productService.findById(id);
-        model.addAttribute("ordersDetails", new OrdersDetails());
-        model.addAttribute("productDTO", productDTO);
-        model.addAttribute("Orders", orders);
-        model.addAttribute("orders_details", orders_details);
-        model.addAttribute("Orderid", Orderid);
+//        List<IOrders> orders = orderRespotion.findOrdersById(id);
+//        List<IOrders> orders_details = orderRespotion.findOrdersDetailsById(Orderid);
+//        model.addAttribute("Orders", orders);
+//        model.addAttribute("orders_details", orders_details);
+//        model.addAttribute("Orderid", Orderid);
         model.addAttribute("id", id);
         return "function/Delete-orders";
     }
 
-//    @PostMapping("/deleteorders/{Orderid}/{id}")
-//    public String deleteProduct(@PathVariable("Orderid") int Orderid,
-//                                @PathVariable("id") int idproduct) {
-//        orderService.deleteProduct(idproduct);
-//        return "redirect:/orders_details/" + Orderid;
-//    }
+    @PostMapping("/deleteorders/{id}")
+    public String deleteProduct(
+                                @PathVariable("id") int id) {
+        orderService.deleteProduct(id);
+        return "redirect:/orders";
+    }
+
 }
 
